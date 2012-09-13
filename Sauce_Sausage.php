@@ -1,7 +1,12 @@
 <?php
 namespace Sauce;
 
-class Sausage {
+require_once("Sauce_Sausage_API.php");
+
+define('SAUCE_HOST', 'saucelabs.com');
+
+class Sausage
+{
 
     protected $username;
     protected $api_key;
@@ -10,11 +15,12 @@ class Sausage {
     {
         $this->username = $username;
         $this->api_key = $api_key;
+        $this->api = new API($this->username);
     }
 
     protected function buildUrl($endpoint, $secure=true)
     {
-        $host = 'saucelabs.com';
+        $host = SAUCE_HOST;
         if ($secure)
             $host = $this->username.':'.$this->api_key.'@'.$host;
         if ($endpoint[0] != '/')
@@ -67,15 +73,14 @@ class Sausage {
         return $json;
     }
 
-    public function updateJob($job_id, $job_details)
+    public function __call($command, $args)
     {
-        if (!$job_id)
-            throw new \Exception("Job id is required for updating a job!");
-
-        $url = $this->buildUrl('/rest/v1/'.$this->username.'/jobs/'.$job_id);
-        $res = $this->makeRequest($url, "PUT", $job_details);
-        print_r($res);
+        $res = call_user_func_array(array($this->api, $command), $arguments);
+        list($endpoint, $request_type, $request_params) = $res;
+        $url = $this->buildUrl($endpoint);
+        return $this->makeRequest($url, $request_type, $request_params);
     }
+
 
 
 }
