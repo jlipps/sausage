@@ -26,10 +26,10 @@ class Sausage
         if ($endpoint[0] != '/')
             $endpoint = '/'.$endpoint;
 
-        return 'http://'.$host.$endpoint;
+        return 'https://'.$host.$endpoint;
     }
 
-    protected function makeRequest($url, $type="POST", $params=array())
+    protected function makeRequest($url, $type="GET", $params=false)
     {
         $ch = curl_init();
 
@@ -46,11 +46,12 @@ class Sausage
         $headers = array();
         $headers[] = 'Content-Type: text/json';
 
+        $data = '';
         if ($params) {
             $data = json_encode($params);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            $headers[] = 'Content-length:'.strlen($data);
         }
+        $headers[] = 'Content-length:'.strlen($data);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -61,7 +62,7 @@ class Sausage
 
         curl_close($ch);
 
-        print_r($response);
+        //print_r($response);
 
         $json = json_decode($response);
 
@@ -75,10 +76,21 @@ class Sausage
 
     public function __call($command, $args)
     {
-        $res = call_user_func_array(array($this->api, $command), $arguments);
-        list($endpoint, $request_type, $request_params) = $res;
+        $res = call_user_func_array(array($this->api, $command), $args);
+
+        if (sizeof($res) < 1)
+            throw new \Exception("Got a bad API call format from $command");
+
+        $endpoint = $res[0];
+
+        $request_args = array_slice($res, 1);
+
         $url = $this->buildUrl($endpoint);
-        return $this->makeRequest($url, $request_type, $request_params);
+
+        array_unshift($request_args, $url);
+        print_r($request_args);
+
+        return call_user_func_array(array($this, 'makeRequest'), $request_args);
     }
 
 
