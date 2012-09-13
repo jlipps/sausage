@@ -26,9 +26,12 @@ Use
     $s->updateJob($most_recent_test['id'], array('passed' => true));
 
     $browser_list = $s->getAllBrowsers();
-    foreach ($browser_list as $browser)
-        echo "${browser['long_name']} ${browser['short_version']}
-        ${browser['os'}";
+    foreach ($browser_list as $browser) {
+        $name = $browser['long_name'];
+        $ver = $browser['short_version'];
+        $os = $browser['os'];
+        echo "$name $ver $os\n";
+    }
 
 See `Sauce/Sausage/API.php` for the list of Sauce API functions (currently
 boasting 100% support). Also check out `test.php` for other examples.
