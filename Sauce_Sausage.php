@@ -21,8 +21,6 @@ class Sausage
     protected function buildUrl($endpoint, $secure=true)
     {
         $host = SAUCE_HOST;
-        if ($secure)
-            $host = $this->username.':'.$this->api_key.'@'.$host;
         if ($endpoint[0] != '/')
             $endpoint = '/'.$endpoint;
 
@@ -35,6 +33,7 @@ class Sausage
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->username.":".$this->api_key);
 
         if ($type == "POST")
             curl_setopt($ch, CURLOPT_POST, 1);
