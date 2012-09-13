@@ -60,17 +60,7 @@ class Sausage
 
         curl_close($ch);
 
-        $result = json_decode($response);
-
-        if (!$result) {
-            throw new \Exception("An error occurred parsing the response. ".
-                                "Please check your parameters and try again");
-        }
-
-        if (is_object($result))
-            $result = get_object_vars($result);
-
-        return $result;
+        return $this->convertResult($response);
     }
 
     public function __call($command, $args)
@@ -89,6 +79,29 @@ class Sausage
         return call_user_func_array(array($this, 'makeRequest'), $request_args);
     }
 
+    protected function convertResult($response)
+    {
+        $result = json_decode($response);
 
+        if (!$result) {
+            throw new \Exception("An error occurred parsing the response. ".
+                                "Please check your parameters and try again");
+        }
+
+        $result = $this->convertObjToArray($result);
+
+        return $result;
+    }
+
+    protected function convertObjToArray($obj)
+    {
+        if (is_object($obj))
+            $obj = get_object_vars($obj);
+        if (is_array($obj))
+            foreach ($obj as $key => $val)
+                $obj[$key] = $this->convertObjToArray($val);
+
+        return $obj;
+    }
 
 }
