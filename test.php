@@ -1,6 +1,6 @@
 <?php
 
-require_once "Sauce_Sausage.php";
+require_once "Sauce/Sausage/Sausage.php";
 
 $s = new Sauce\Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
 
