@@ -51,20 +51,30 @@ class Sausage {
         $response = curl_exec($ch);
 
         if (curl_errno($ch))
-            throw new Exception("Got an error while making a request: ".curl_error($ch));
+            throw new \Exception("Got an error while making a request: ".curl_error($ch));
 
         curl_close($ch);
 
-        return json_decode($response);
+        print_r($response);
+
+        $json = json_decode($response);
+
+        if (!$json) {
+            throw new \Exception("An error occurred parsing the response. ".
+                                "Please check your parameters and try again");
+        }
+
+        return $json;
     }
 
     public function updateJob($job_id, $job_details)
     {
         if (!$job_id)
-            throw new Exception("Job id is required for updating a job!");
+            throw new \Exception("Job id is required for updating a job!");
 
         $url = $this->buildUrl('/rest/v1/'.$this->username.'/jobs/'.$job_id);
         $res = $this->makeRequest($url, "PUT", $job_details);
+        print_r($res);
     }
 
 
