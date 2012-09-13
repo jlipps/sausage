@@ -5,12 +5,12 @@ A PHP framework for the Sauce Labs REST API
 
 Install
 ------------
-Use [Packagist](http://packagist.org/). The package name is `Sauce/Sausage` An example composer.json would look
+Use [Packagist](http://packagist.org/). The package name is `sauce/sausage` An example composer.json would look
 like:
 
     {
         "require": {
-            "Sauce/Sausage": ">=0.1.0"
+            "sauce/sausage": ">=0.1.0"
         }
     }
 
