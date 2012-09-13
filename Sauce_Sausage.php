@@ -62,7 +62,7 @@ class Sausage
 
         curl_close($ch);
 
-        //print_r($response);
+        print_r($response);
 
         $json = json_decode($response);
 
