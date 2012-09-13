@@ -1,0 +1,17 @@
+{
+  "name": "Sauce/Sausage",
+  "type": "library",
+  "description": "PHP version of the Sauce Labs API",
+  "keywords": ["sauce", "saucelabs", "api"],
+  "homepage": "http://github.com/jlipps/sausage",
+  "license": "MIT",
+  "authors": [{
+    "name": "Jonathan Lipps",
+    "email": "jlipps@saucelabs.com",
+    "homepage": "http://www.saucelabs.com",
+    "role": "Developer"
+  }],
+  "require": {
+    "php": ">=5.3.0"
+  }
+}
