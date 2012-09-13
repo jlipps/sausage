@@ -2,7 +2,9 @@
 
 require_once "Sauce/Sausage/Sausage.php";
 
-$s = new Sauce\Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
+use Sauce\Sausage\Sausage as Sausage;
+
+$s = new Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
 
 //$res = $s->updateJob('0e2ae11933664d0ba26948d379fc67a6', array('passed'=>TRUE));
 //print_r($res);
@@ -14,8 +16,8 @@ $s = new Sauce\Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
 //print_r($res);
 //$res = $s->updateSubaccountSubscription('jlipps', 'free');
 //print_r($res);
-//$res = $s->login('testpass');
-//print_r($res);
+$res = $s->login('testpass', 'jlippstest');
+print_r($res);
 //$res = $s->getUsage(null, null, 'jlippstest');
 //print_r($res);
 //$res = $s->getUsage('2012-03-01', '2012-05-01');

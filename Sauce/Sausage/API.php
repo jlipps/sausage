@@ -1,6 +1,6 @@
 <?php
 
-namespace Sauce;
+namespace Sauce\Sausage;
 
 define('SAUCE_API_PREFIX', '/rest/v1/');
 

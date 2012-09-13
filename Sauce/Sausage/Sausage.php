@@ -1,7 +1,7 @@
 <?php
-namespace Sauce;
+namespace Sauce\Sausage;
 
-require_once("Sauce_Sausage_API.php");
+require_once(dirname(__FILE__)."/API.php");
 
 define('SAUCE_HOST', 'saucelabs.com');
 
@@ -85,7 +85,6 @@ class Sausage
         $url = $this->buildUrl($endpoint);
 
         array_unshift($request_args, $url);
-        print_r($request_args);
 
         return call_user_func_array(array($this, 'makeRequest'), $request_args);
     }
