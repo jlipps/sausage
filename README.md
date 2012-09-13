@@ -22,6 +22,7 @@ Use
 
     $my_details = $s->getAccountDetails();
 
-    $recent_tests = $s->getJobs();
-    $most_recent_test = $recent_tests[0];
-    $s->updateJob()
+    $most_recent_test = $s->getJobs(0)['jobs'][0];
+    $s->updateJob($most_recent_test['id'], array('passed' => true));
+
+
