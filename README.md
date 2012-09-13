@@ -31,7 +31,7 @@ Use
         ${browser['os'}";
 
 See `Sauce/Sausage/API.php` for the list of Sauce API functions (currently
-boasting 100% support).
+boasting 100% support). Also check out `test.php` for other examples.
 
 Contribute
 ---
