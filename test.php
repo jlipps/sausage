@@ -3,7 +3,6 @@
 require_once "Sauce_Sausage.php";
 
 $s = new Sauce\Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
-//$s = new Sauce\Sausage('jlippstest', 'c1dad461-9fcb-4494-947c-d7ac83e7c3f7');
 
 //$res = $s->updateJob('0e2ae11933664d0ba26948d379fc67a6', array('passed'=>TRUE));
 //print_r($res);
@@ -56,5 +55,5 @@ $s = new Sauce\Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
 //print_r($res);
 //$res = $s->getTunnel('00af7b9575f6405b82176d983ac6aa94');
 //print_r($res);
-$res = $s->deleteTunnel('00af7b9575f6405b82176d983ac6aa94');
-print_r($res);
+//$res = $s->deleteTunnel('00af7b9575f6405b82176d983ac6aa94');
+//print_r($res);

@@ -18,13 +18,12 @@ class Sausage
         $this->api = new API($this->username);
     }
 
-    protected function buildUrl($endpoint, $secure=true)
+    protected function buildUrl($endpoint)
     {
-        $host = SAUCE_HOST;
         if ($endpoint[0] != '/')
             $endpoint = '/'.$endpoint;
 
-        return 'https://'.$host.$endpoint;
+        return 'https://'.SAUCE_HOST.$endpoint;
     }
 
     protected function makeRequest($url, $type="GET", $params=false)
@@ -61,16 +60,17 @@ class Sausage
 
         curl_close($ch);
 
-        print_r($response);
+        $result = json_decode($response);
 
-        $json = json_decode($response);
-
-        if (!$json) {
+        if (!$result) {
             throw new \Exception("An error occurred parsing the response. ".
                                 "Please check your parameters and try again");
         }
 
-        return $json;
+        if (is_object($result))
+            $result = get_object_vars($result);
+
+        return $result;
     }
 
     public function __call($command, $args)
@@ -78,9 +78,7 @@ class Sausage
         $res = call_user_func_array(array($this->api, $command), $args);
 
         if (sizeof($res) < 1)
-            throw new \Exception("Got a bad API call format from $command");
-
-        $endpoint = $res[0];
+            throw new \Exception("Got a bad API call format from $command"); $endpoint = $res[0];
 
         $request_args = array_slice($res, 1);
 
