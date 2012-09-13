@@ -3,7 +3,7 @@ sausage
 
 A PHP framework for the Sauce Labs REST API
 
-Installation
+Install
 ------------
 Use [Packagist](http://packagist.org/). The package name is `Sauce/Sausage` An example composer.json would look
 like:
@@ -25,4 +25,15 @@ Use
     $most_recent_test = $s->getJobs(0)['jobs'][0];
     $s->updateJob($most_recent_test['id'], array('passed' => true));
 
+    $browser_list = $s->getAllBrowsers();
+    foreach ($browser_list as $browser)
+        echo "${browser['long_name']} ${browser['short_version']}
+        ${browser['os'}";
 
+See `Sauce/Sausage/API.php` for the list of Sauce API functions (currently
+boasting 100% support).
+
+Contribute
+---
+
+Send in all the pull requests!
