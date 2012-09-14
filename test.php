@@ -1,13 +1,11 @@
 <?php
 
-require_once "Sauce/Sausage/Sausage.php";
+require_once "Sauce/Sausage/SauceAPI.php";
 
-use Sauce\Sausage\Sausage as Sausage;
+$s = new Sauce\Sausage\SauceAPI(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
 
-$s = new Sausage(getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
-
-//$res = $s->updateJob('0e2ae11933664d0ba26948d379fc67a6', array('passed'=>TRUE));
-//print_r($res);
+$res = $s->updateJob('0e2ae11933664d0ba26948d379fc67a6', array('passed'=>TRUE));
+print_r($res);
 //$res = $s->getAccountDetails();
 //print_r($res);
 //$res = $s->getAccountLimits();

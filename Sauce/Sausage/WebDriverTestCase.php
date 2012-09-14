@@ -2,7 +2,7 @@
 namespace Sauce\Sausage;
 
 require_once 'PHPUnit/Extensions/Selenium2TestCase.php';
-require_once dirname(__file__).'/API.php';
+require_once dirname(__file__).'/SauceAPI.php';
 
 abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
@@ -21,11 +21,11 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     public function setupSpecificBrowser($params)
     {
         if (!defined('SAUCE_USERNAME') || !SAUCE_USERNAME) {
-            throw new Exception("SAUCE_USERNAME must be defined!");
+            throw new \Exception("SAUCE_USERNAME must be defined!");
         }
 
         if (!defined('SAUCE_ACCESS_KEY') || !SAUCE_ACCESS_KEY) {
-            throw new Exception("SAUCE_ACCESS_KEY must be defined!");
+            throw new \Exception("SAUCE_ACCESS_KEY must be defined!");
         }
 
         if (!isset($params['seleniumServerRequestsTimeout']))
@@ -51,10 +51,15 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         $this->localSessionStrategy = false;
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->api = new SauceAPI(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
         $status = !$this->hasFailed();
         $this->api->updateJob($this->getSessionId(), array('passed'=>$status));
+    }
+
+    public function spinAssert()
+    {
     }
 
 }

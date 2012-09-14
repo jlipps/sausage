@@ -13,6 +13,10 @@ class SauceAPI
 
     public function __construct($username, $api_key)
     {
+        if (!$username)
+            throw new \Exception("Username is required for SauceAPI");
+        if (!$api_key)
+            throw new \Exception("api_key is required for SauceAPI");
         $this->username = $username;
         $this->api_key = $api_key;
         $this->methods = new SauceMethods($this->username);
