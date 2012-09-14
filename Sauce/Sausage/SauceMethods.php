@@ -4,7 +4,7 @@ namespace Sauce\Sausage;
 
 define('SAUCE_API_PREFIX', '/rest/v1/');
 
-class API
+class SauceMethods
 {
 
     protected $username;

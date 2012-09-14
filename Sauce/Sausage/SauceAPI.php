@@ -1,11 +1,11 @@
 <?php
 namespace Sauce\Sausage;
 
-require_once(dirname(__FILE__)."/API.php");
+require_once(dirname(__FILE__)."/SauceMethods.php");
 
 define('SAUCE_HOST', 'saucelabs.com');
 
-class Sausage
+class SauceAPI
 {
 
     protected $username;
@@ -15,7 +15,7 @@ class Sausage
     {
         $this->username = $username;
         $this->api_key = $api_key;
-        $this->api = new API($this->username);
+        $this->methods = new SauceMethods($this->username);
     }
 
     protected function buildUrl($endpoint)
@@ -65,7 +65,7 @@ class Sausage
 
     public function __call($command, $args)
     {
-        $res = call_user_func_array(array($this->api, $command), $args);
+        $res = call_user_func_array(array($this->methods, $command), $args);
 
         if (sizeof($res) < 1)
             throw new \Exception("Got a bad API call format from $command"); $endpoint = $res[0];
