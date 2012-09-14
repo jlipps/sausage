@@ -58,8 +58,26 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         $this->api->updateJob($this->getSessionId(), array('passed'=>$status));
     }
 
-    public function spinAssert()
+    public function spinAssert($msg, $test, $args=array(), $timeout=10)
     {
+        $num_tries = 0;
+        $result = false;
+        while ($num_tries < $timeout && !$result) {
+            try {
+                $result = call_user_func_array($test, $args);
+            } catch (\Exception $e) {
+                $result = false;
+            }
+
+            if (!$result)
+                sleep(1);
+
+            $num_tries++;
+        }
+
+        $msg .= " (Failed after $num_tries tries)";
+
+        $this->assertTrue($result, $msg);
     }
 
 }

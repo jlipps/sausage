@@ -14,13 +14,13 @@ class WebDriverTest extends Sauce\Sausage\WebDriverTestCase
                 'version' => '15',
                 'os' => 'VISTA'
             )
-        ),
-        array(
-            'browserName' => 'chrome',
-            'desiredCapabilities' => array(
-                'os' => 'Linux'
-          )
         )
+        //array(
+            //'browserName' => 'chrome',
+            //'desiredCapabilities' => array(
+                //'os' => 'Linux'
+          //)
+        //)
     );
 
     public function setUp()
@@ -56,7 +56,17 @@ class WebDriverTest extends Sauce\Sausage\WebDriverTestCase
         $this->byId('comments')->click();
         $this->keys($comment);
         $this->byId('submit')->submit();
-        $this->assertEquals($this->byId('your_comments')->text(), "Your comments: $comment");
+        $driver = $this;
+
+        $comment_test =
+            function() use ($comment, $driver)
+            {
+                return ($driver->byId('your_comments')->text() == "Your comments: $comment");
+            }
+        ;
+
+        $this->spinAssert("Comment never showed up!", $comment_test);
+
     }
 
 }
