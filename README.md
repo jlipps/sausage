@@ -1,7 +1,7 @@
 sausage
 =======
 
-A PHP framework for the Sauce Labs REST API
+Your one-stop shop for everything Sauce Labs + PHP
 
 Install
 ------------
@@ -14,11 +14,11 @@ like:
         }
     }
 
-Use
+Sauce Labs API
 ---
     <?php 
 
-    $s = new Sauce\Sausage\Sausage('myusername', 'myapikey');
+    $s = new Sauce\Sausage\SauceAPI('myusername', 'myapikey');
 
     $my_details = $s->getAccountDetails();
 
@@ -33,8 +33,17 @@ Use
         echo "$name $ver $os\n";
     }
 
-See `Sauce/Sausage/API.php` for the list of Sauce API functions (currently
-boasting 100% support). Also check out `test.php` for other examples.
+See `Sauce/Sausage/SauceMethods.php` for the list of Sauce API functions (currently
+boasting 100% support). Also check out `sauce_api_test.php` for other examples.
+
+PHPUnit Extensions
+------------------
+
+Selenium much? Check out `WebDriverTestCase.php` or `SeleniumRCTestCase.php`.
+The easiest way to use Selenium with PHPUnit. Automatically handles reporting
+pass/fail status to Sauce and gives you the power of SpinAsserts!
+
+Check out `WebDriverDemo.php` or `SeleniumRCDemo.php` to see how awesome it is.
 
 Contribute
 ---
