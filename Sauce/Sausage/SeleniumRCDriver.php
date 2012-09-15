@@ -4,7 +4,7 @@ namespace Sauce\Sausage;
 
 require_once 'PHPUnit/Extensions/SeleniumTestCase/Driver.php';
 
-abstract class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
+class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
 {
 
     protected $os;
@@ -17,46 +17,10 @@ abstract class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Dri
 
     public function start()
     {
-        if ($this->browserUrl == NULL) {
-            throw new PHPUnit_Framework_Exception(
-              'setBrowserUrl() needs to be called before start().'
-            );
-        }
-
-        if ($this->username == NULL) {
-            throw new PHPUnit_Framework_Exception(
-              'setUsername() needs to be called before start().'
-            );
-        }
-
-        if ($this->access_key == NULL) {
-            throw new PHPUnit_Framework_Exception(
-              'setAccessKey() needs to be called before start().'
-            );
-        }
-
-        if ($this->browser == NULL) {
-            throw new PHPUnit_Framework_Exception(
-              'setBrowser() needs to be called before start().'
-            );
-        }
-
-        if ($this->browser_version == NULL) {
-            throw new PHPUnit_Framework_Exception(
-              'setBrowserVersion() needs to be called before start().'
-            );
-        }
-
-        if ($this->os == NULL) {
-            throw new PHPUnit_Framework_Exception(
-              'setOs() needs to be called before start().'
-            );
-        }
-
-        if ($this->webDriverCapabilities !== NULL) {
-            throw new \PHPUnit_Framework_Exception(
-                'Sauce extensions of PHP do not allow webDriverCapabilities'
-            );
+        foreach (array('browserUrl', 'username', 'access_key', 'browser', 'browser_version', 'os') as $data) {
+            if ($this->$data == NULL) {
+                throw new \PHPUnit_Framework_Exception("set $data () needs to be called before start().");
+            }
         }
 
         $data = array(
@@ -65,6 +29,7 @@ abstract class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Dri
             'os'              => $this->os,
             'browser'         => $this->browser,
             'browser-version' => $this->browser_version,
+            'name'            => $this->name
         );
 
         $this->sessionId = $this->getString(
