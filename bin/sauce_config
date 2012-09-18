@@ -2,6 +2,7 @@
 <?php
 
 use Sauce\Sausage\SauceConfig;
+echo dirname(__FILE__);
 
 $USAGE = "USAGE: sauce_config USERNAME API_KEY";
 
