@@ -1,16 +1,41 @@
 #!/usr/bin/env bash -e
-USAGE="USAGE: sauce_config USERNAME ACCESS_KEY"
+USAGE="USAGE: sauce_config USERNAME API_KEY"
 
 pushd `dirname $0` > /dev/null
 SCRIPTPATH=`pwd -P`
 popd > /dev/null
 
-echo "$SCRIPTPATH"
+if [[ "$SCRIPTPATH" == *"vendor"* ]]
+then
+  PROJECTPATH="$SCRIPTPATH/../.."
+else
+  PROJECTPATH="$SCRIPTPATH/.."
+fi
 
-if [ -z "$1" ] then
+echo "Configuring Sauce..."
+
+if [ -z "$1" ]
+then
+  echo "Please include your sauce username!"
   echo "$USAGE"
   exit 1
+fi
 
-if [ -z "$2" ] then
+if [ -z "$2" ]
+then
+  echo "Please include your sauce api key!"
   echo "$USAGE"
   exit 1
+fi
+
+firstrun=true
+if [ -f "$PROJECTPATH/.sauce_config" ]
+then
+  echo "Overwriting existing configuration..."
+  firstrun=false
+fi
+
+echo "$1,$2" > $PROJECTPATH/.sauce_config
+
+echo "Sauce is configured!"
+if $firstrun; then echo "(You may want to add .sauce_config to the ignore file for your version control system)"; fi
