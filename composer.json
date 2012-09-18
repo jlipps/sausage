@@ -4,7 +4,7 @@
   "description": "PHP version of the Sauce Labs API",
   "keywords": ["sauce", "saucelabs", "api", "testing", "phpunit", "selenium"],
   "homepage": "http://github.com/jlipps/sausage",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "authors": [{
     "name": "Jonathan Lipps",
     "email": "jlipps@saucelabs.com",
