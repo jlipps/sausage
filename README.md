@@ -3,6 +3,11 @@ sausage
 
 Your one-stop shop for everything Sauce Labs + PHP
 
+License
+-------
+Sausage is available under the Apache 2 license. See `LICENSE.APACHE2` for more
+details.
+
 Install
 ------------
 Use [Packagist](http://packagist.org/). The package name is `sauce/sausage` An example composer.json would look
