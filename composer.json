@@ -18,5 +18,9 @@
   },
   "autoload": {
     "psr-0": {"Sauce": "src/"}
+  },
+  "support": {
+    "email": "help@saucelabs.com",
+    "irc": "irc://irc.freenode.org/saucelabs"
   }
 }
