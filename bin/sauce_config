@@ -1,0 +1,16 @@
+#!/usr/bin/env bash -e
+USAGE="USAGE: sauce_config USERNAME ACCESS_KEY"
+
+pushd `dirname $0` > /dev/null
+SCRIPTPATH=`pwd -P`
+popd > /dev/null
+
+echo "$SCRIPTPATH"
+
+if [ -z "$1" ] then
+  echo "$USAGE"
+  exit 1
+
+if [ -z "$2" ] then
+  echo "$USAGE"
+  exit 1
