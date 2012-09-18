@@ -23,5 +23,6 @@
   "support": {
     "email": "help@saucelabs.com",
     "irc": "irc://irc.freenode.org/saucelabs"
-  }
+  },
+  "bin": ["bin/sauce_connect", "bin/sauce_config"]
 }
