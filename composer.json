@@ -9,8 +9,9 @@
     "name": "Jonathan Lipps",
     "email": "jlipps@saucelabs.com",
     "homepage": "http://www.saucelabs.com",
-    "role": "Developer"
+    "role": "Lead"
   }],
+  "minimum-stability": "dev",
   "require": {
     "php": ">=5.3.0",
     "phpunit/phpunit-selenium": "dev-master"
