@@ -7,12 +7,14 @@ abstract class SauceTestCommon
 
     public static function RequireSauceConfig()
     {
+        SauceConfig::LoadConfig();
+
         if (!defined('SAUCE_USERNAME') || !SAUCE_USERNAME) {
             throw new \Exception("SAUCE_USERNAME must be defined!");
         }
 
-        if (!defined('SAUCE_ACCESS_KEY') || !SAUCE_ACCESS_KEY) {
-            throw new \Exception("SAUCE_ACCESS_KEY must be defined!");
+        if (!defined('SAUCE_API_KEY') || !SAUCE_API_KEY) {
+            throw new \Exception("SAUCE_API_KEY must be defined!");
         }
     }
 

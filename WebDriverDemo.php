@@ -2,9 +2,6 @@
 
 require_once 'vendor/autoload.php';
 
-define('SAUCE_USERNAME', getenv('SAUCE_USERNAME'));
-define('SAUCE_ACCESS_KEY', getenv('SAUCE_ACCESS_KEY'));
-
 class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 {
     public static $browsers = array(

@@ -2,9 +2,6 @@
 
 require_once 'vendor/autoload.php';
 
-define('SAUCE_USERNAME', getenv('SAUCE_USERNAME'));
-define('SAUCE_ACCESS_KEY', getenv('SAUCE_ACCESS_KEY'));
-
 class SeleniumRCDemo extends Sauce\Sausage\SeleniumRCTestCase
 {
     public static $browsers = array(
