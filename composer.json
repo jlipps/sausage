@@ -16,6 +16,6 @@
     "phpunit/phpunit-selenium": "dev-master"
   },
   "autoload": {
-    "psr-0": {"Sauce": "./"}
+    "psr-0": {"Sauce": "src/"}
   }
 }
