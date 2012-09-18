@@ -1,8 +1,9 @@
 #!/usr/bin/env php 
 <?php
 
+require_once dirname(__FILE__).'/../src/Sauce/Sausage/SauceConfig.php';
+
 use Sauce\Sausage\SauceConfig;
-echo dirname(__FILE__);
 
 $USAGE = "USAGE: sauce_config USERNAME API_KEY";
 

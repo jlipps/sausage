@@ -24,6 +24,14 @@ class SauceConfig
         }
     }
 
+    public static function GetConfig()
+    {
+        self::LoadConfig();
+        $username = defined('SAUCE_USERNAME') ? SAUCE_USERNAME : '';
+        $api_key = defined('SAUCE_API_KEY') ? SAUCE_API_KEY : '';
+        return array($username, $api_key);
+    }
+
     public static function WriteConfig($username, $api_key) {
         file_put_contents(CONFIG_PATH, "{$username},{$api_key}");
     }
