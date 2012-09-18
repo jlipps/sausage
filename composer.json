@@ -2,7 +2,7 @@
   "name": "sauce/sausage",
   "type": "library",
   "description": "PHP version of the Sauce Labs API",
-  "keywords": ["sauce", "saucelabs", "api"],
+  "keywords": ["sauce", "saucelabs", "api", "testing", "phpunit", "selenium"],
   "homepage": "http://github.com/jlipps/sausage",
   "license": "MIT",
   "authors": [{
