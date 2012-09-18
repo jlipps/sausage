@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Sauce/Sausage/WebDriverTestCase.php';
+require_once 'src/Sauce/Sausage/WebDriverTestCase.php';
 
 define('SAUCE_USERNAME', getenv('SAUCE_USERNAME'));
 define('SAUCE_ACCESS_KEY', getenv('SAUCE_ACCESS_KEY'));

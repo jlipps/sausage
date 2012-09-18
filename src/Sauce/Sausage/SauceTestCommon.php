@@ -2,8 +2,6 @@
 
 namespace Sauce\Sausage;
 
-require_once dirname(__file__).'/SauceAPI.php';
-
 abstract class SauceTestCommon
 {
 

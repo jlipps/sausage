@@ -1,9 +1,6 @@
 <?php
 namespace Sauce\Sausage;
 
-require_once 'PHPUnit/Extensions/Selenium2TestCase.php';
-require_once dirname(__file__).'/SauceTestCommon.php';
-
 abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
 

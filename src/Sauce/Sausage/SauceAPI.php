@@ -1,8 +1,6 @@
 <?php
 namespace Sauce\Sausage;
 
-require_once(dirname(__FILE__)."/SauceMethods.php");
-
 define('SAUCE_HOST', 'saucelabs.com');
 
 class SauceAPI

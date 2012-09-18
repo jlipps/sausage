@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Sauce/Sausage/SeleniumRCTestCase.php';
+require_once 'src/Sauce/Sausage/SeleniumRCTestCase.php';
 
 define('SAUCE_USERNAME', getenv('SAUCE_USERNAME'));
 define('SAUCE_ACCESS_KEY', getenv('SAUCE_ACCESS_KEY'));

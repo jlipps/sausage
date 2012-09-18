@@ -2,10 +2,6 @@
 
 namespace Sauce\Sausage;
 
-require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
-require_once dirname(__file__).'/SauceTestCommon.php';
-require_once dirname(__file__).'/SeleniumRCDriver.php';
-
 abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
 

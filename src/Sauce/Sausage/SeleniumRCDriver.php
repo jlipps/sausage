@@ -2,8 +2,6 @@
 
 namespace Sauce\Sausage;
 
-require_once 'PHPUnit/Extensions/SeleniumTestCase/Driver.php';
-
 class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
 {
 
