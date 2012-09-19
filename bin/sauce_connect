@@ -22,6 +22,7 @@ if (count($argv) > 1) {
 
 $cmd = "java -jar $CONNECT_BINARY $username $api_key$args";
 
+$process = proc_open($cmd, array(array("pipe", "r"), array("pipe", "w"), array("pipe", "w")), $pipes, NULL);
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
 $status = proc_get_status($process);
