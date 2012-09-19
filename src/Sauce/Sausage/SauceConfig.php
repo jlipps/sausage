@@ -15,7 +15,7 @@ class SauceConfig
                 list($username, $api_key) = split(',', $config);
                 $username = trim($username);
                 $api_key = trim($api_key);
-            } elseif (getenv('SAUCE_USERNAME') && getenv('SAUCE_API_KEY')) {
+            } elseif (getenv('SAUCE_USERNAME') && getenv('SAUCE_ACCESS_KEY')) {
                 $username = getenv('SAUCE_USERNAME');
                 $api_key = getenv('SAUCE_API_KEY');
             }
