@@ -42,4 +42,4 @@ while ($status['running']) {
 fclose($pipes[0]);
 fclose($pipes[1]);
 fclose($pipes[2]);
-proc_close($proc);
+proc_close($process);
