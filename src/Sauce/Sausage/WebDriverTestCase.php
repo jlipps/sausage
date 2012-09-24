@@ -17,27 +17,43 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     {
         SauceTestCommon::RequireSauceConfig();
 
+        // Give some nice defaults
         if (!isset($params['seleniumServerRequestsTimeout']))
             $params['seleniumServerRequestsTimeout'] = 60;
 
-        if (!isset($params['browserName']))
+        if (!isset($params['browserName'])) {
             $params['browserName'] = 'chrome';
-
-        if (!isset($params['desiredCapabilities'])) {
             $params['desiredCapabilities'] = array(
-                'version' => '*',
+                'version' => '',
                 'os' => 'VISTA'
             );
         }
 
-        $host = SAUCE_USERNAME.':'.SAUCE_API_KEY.'@ondemand.saucelabs.com';
-        $this->setHost($host);
-        $this->setPort(80);
+        // Setting 'local' gives us nice defaults of localhost:4444
+        $local = (isset($params['local']) && $params['local']);
+
+        // Set up host
+        $sauce_host = SAUCE_USERNAME.':'.SAUCE_API_KEY.'@ondemand.saucelabs.com';
+        $host = isset($params['host']) ? $params['host'] : false;
+        $this->setHost($host ? $host : ($local ? 'localhost' : $sauce_host));
+
+        // Set up port
+        $port = isset($params['port']) ? $params['port'] : false;
+        $this->setPort($port ? $port : ($local ? 4444 : 80));
+
+        // Set up other params
         $this->setBrowser($params['browserName']);
-        $this->setDesiredCapabilities($params['desiredCapabilities']);
+        $caps = isset($params['desiredCapabilities']) ? $params['desiredCapabilities'] : array();
+        $this->setDesiredCapabilities($caps);
         $this->setSeleniumServerRequestsTimeout(
             $params['seleniumServerRequestsTimeout']);
-        $this->localSessionStrategy = false;
+
+        // If we're using Sauce, make sure we don't try to share browsers
+        if (!$local && !$host && isset($params['sessionStrategy'])) {
+            $params['sessionStrategy'] = 'isolated';
+        }
+
+        $this->setUpSessionStrategy($params);
     }
 
     public function tearDown()

@@ -5,19 +5,27 @@ require_once 'vendor/autoload.php';
 class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 {
     public static $browsers = array(
+        // run FF15 on Vista on Sauce
         array(
             'browserName' => 'firefox',
             'desiredCapabilities' => array(
                 'version' => '15',
                 'os' => 'VISTA'
             )
+        ),
+        // run Chrome on Linux on Sauce
+        array(
+            'browserName' => 'chrome',
+            'desiredCapabilities' => array(
+                'os' => 'Linux'
+          )
+        ),
+        // run Chrome locally
+        array(
+            'browserName' => 'chrome',
+            'local' => true,
+            'sessionStrategy' => 'shared'
         )
-        //array(
-            //'browserName' => 'chrome',
-            //'desiredCapabilities' => array(
-                //'os' => 'Linux'
-          //)
-        //)
     );
 
     public function setUp()
