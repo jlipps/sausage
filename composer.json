@@ -15,7 +15,8 @@
   "require": {
     "php": ">=5.3.0",
     "sauce/sausage-installer": "dev-master",
-    "phpunit/phpunit-selenium": "dev-master"
+    "phpunit/phpunit-selenium": "dev-master",
+    "jlipps/paraunit": "dev-master"
   },
   "autoload": {
     "psr-0": {"Sauce": "src/"}

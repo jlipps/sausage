@@ -11,6 +11,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             $caps['name'] = get_called_class().'::'.$this->getName();
             $this->setDesiredCapabilities($caps);
         }
+        $this->setBrowserUrl('');
     }
 
     public function setupSpecificBrowser($params)
@@ -56,6 +57,45 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         $this->setUpSessionStrategy($params);
     }
 
+    public function isTextPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
+    {
+        $element = $element ?: $this->byCssSelector('body');
+        $el_text = str_replace("\n", " ", $element->text());
+        return strpos($el_text, $text) !== false;
+    }
+
+    public function waitForText($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL,
+        $timeout = 10)
+    {
+        $element = $element ?: $this->byCssSelector('body');
+        $test = function() use ($element, $text) {
+            $el_text = str_replace("\n", " ", $element->text());
+            return strpos($el_text, $text) !== false;
+        };
+        $this->spinWait("Text $text never appeared!", $test, array(), $timeout);
+    }
+
+
+    public function assertTextPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
+    {
+        if ($element === NULL)
+            $element = $this->byCssSelector('body');
+
+        $this->assertContains($text, $element->text());
+    }
+
+    public function assertTextNotPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
+    {
+        $element = $element ?: $this->byCssSelector('body');
+        $this->assertNotContains($text, $element->text());
+    }
+
+    public function sendKeys(\PHPUnit_Extensions_Selenium2TestCase_Element $element, $keys)
+    {
+        $element->click();
+        $this->keys($keys);
+    }
+
     public function tearDown()
     {
         SauceTestCommon::ReportStatus($this->getSessionId(), !$this->hasFailed());
@@ -65,6 +105,13 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     {
         list($result, $msg) = SauceTestCommon::SpinAssert($msg, $test, $args, $timeout);
         $this->assertTrue($result, $msg);
+    }
+
+    public function spinWait($msg, $test, $args=array(), $timeout=10)
+    {
+        list($result, $msg) = SauceTestCommon::SpinAssert($msg, $test, $args, $timeout);
+        if (!$result)
+            throw new \Exception($msg);
     }
 
 }

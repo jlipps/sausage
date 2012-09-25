@@ -38,4 +38,5 @@ abstract class SauceTestCommon
 
         return array($result, $msg);
     }
+
 }
