@@ -4,6 +4,8 @@ namespace Sauce\Sausage;
 abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
 
+    protected $start_url = '';
+
     public function setUp()
     {
         $caps = $this->getDesiredCapabilities();
@@ -11,7 +13,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             $caps['name'] = get_called_class().'::'.$this->getName();
             $this->setDesiredCapabilities($caps);
         }
-        $this->setBrowserUrl('');
+        $this->setBrowserUrl($this->start_url);
     }
 
     public function setupSpecificBrowser($params)
@@ -26,7 +28,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             $params['browserName'] = 'chrome';
             $params['desiredCapabilities'] = array(
                 'version' => '',
-                'os' => 'VISTA'
+                'platform' => 'VISTA'
             );
         }
 
