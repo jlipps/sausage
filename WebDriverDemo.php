@@ -19,13 +19,13 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
             'desiredCapabilities' => array(
                 'platform' => 'Linux'
           )
-        ),
+        )//,
         // run Chrome locally
-        array(
-            'browserName' => 'chrome',
-            'local' => true,
-            'sessionStrategy' => 'shared'
-        )
+        //array(
+            //'browserName' => 'chrome',
+            //'local' => true,
+            //'sessionStrategy' => 'shared'
+        //)
     );
 
     public function setUp()
