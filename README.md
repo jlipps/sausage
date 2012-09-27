@@ -30,12 +30,14 @@ Sausage is distributed as a [Composer](http://getcomposer.org) package via
 under the package `sauce/sausage`. To get it, add (or update) the `composer.json` 
 file in your project root. A minimal example composer.json would look like:
 
-    {
-        "require": {
-            "sauce/sausage": "dev-master"
-        },
-        "minimum-stability": "dev"
-    }
+```json
+{
+    "require": {
+        "sauce/sausage": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
+```
 
 If you haven't already got Composer installed, get it thusly:
 
@@ -93,44 +95,45 @@ is by default built on top of
 commands that work in `PHPUnit_Extensions_Selenium2TestCase` also work in 
 Sausage's `WebDriverTestCase`. Here's a simple example:
 
-    
-    <?php
+```php    
+<?php
 
-    require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
-    class MyAwesomeTestCase extends Sauce\Sausage\WebDriverTestCase
-    {
-        public static $browsers = array(
-            // run FF15 on Vista on Sauce
-            array(
-                'browserName' => 'firefox',
-                'desiredCapabilities' => array(
-                    'version' => '15',
-                    'platform' => 'VISTA'
-                )
-            ),
-            // run Chrome on Linux on Sauce
-            array(
-                'browserName' => 'chrome',
-                'desiredCapabilities' => array(
-                    'platform' => 'Linux'
-              )
+class MyAwesomeTestCase extends Sauce\Sausage\WebDriverTestCase
+{
+    public static $browsers = array(
+        // run FF15 on Vista on Sauce
+        array(
+            'browserName' => 'firefox',
+            'desiredCapabilities' => array(
+                'version' => '15',
+                'platform' => 'VISTA'
             )
-        );
+        ),
+        // run Chrome on Linux on Sauce
+        array(
+            'browserName' => 'chrome',
+            'desiredCapabilities' => array(
+                'platform' => 'Linux'
+          )
+        )
+    );
 
-        public function setUp()
-        {
-            parent::setUp();
-            $this->setBrowserUrl('http://saucelabs.com/test/guinea-pig');
-        }
-
-        public function testLink()
-        {
-            $link = $this->byId('i am a link');
-            $link->click();
-            $this->assertContains("I am another page title", $this->title());
-        }
+    public function setUp()
+    {
+        parent::setUp();
+        $this->setBrowserUrl('http://saucelabs.com/test/guinea-pig');
     }
+
+    public function testLink()
+    {
+        $link = $this->byId('i am a link');
+        $link->click();
+        $this->assertContains("I am another page title", $this->title());
+    }
+}
+```
 
 In this example, we define a set of browsers to use, and run a simple check 
 to make sure that clicking on a link gets us to the expected new page.
@@ -146,22 +149,24 @@ Sauce Labs API
 ---
 Sausage comes bundled with a nice PHP interface to the [Sauce Labs API](https://saucelabs.com/docs/rest):
 
-    <?php 
+```php
+<?php 
 
-    $s = new Sauce\Sausage\SauceAPI('myusername', 'myapikey');
+$s = new Sauce\Sausage\SauceAPI('myusername', 'myapikey');
 
-    $my_details = $s->getAccountDetails();
+$my_details = $s->getAccountDetails();
 
-    $most_recent_test = $s->getJobs(0)['jobs'][0];
-    $s->updateJob($most_recent_test['id'], array('passed' => true));
+$most_recent_test = $s->getJobs(0)['jobs'][0];
+$s->updateJob($most_recent_test['id'], array('passed' => true));
 
-    $browser_list = $s->getAllBrowsers();
-    foreach ($browser_list as $browser) {
-        $name = $browser['long_name'];
-        $ver = $browser['short_version'];
-        $os = $browser['os'];
-        echo "$name $ver $os\n";
-    }
+$browser_list = $s->getAllBrowsers();
+foreach ($browser_list as $browser) {
+    $name = $browser['long_name'];
+    $ver = $browser['short_version'];
+    $os = $browser['os'];
+    echo "$name $ver $os\n";
+}
+```
 
 See `Sauce/Sausage/SauceMethods.php` for the list of Sauce API functions (currently
 boasting 100% support). Also check out `sauce_api_test.php` for other examples.
@@ -187,21 +192,22 @@ SpinAsserts are awesome and [you should really use them](http://sauceio.com/inde
 Let's say we want to perform a check and we're not exactly sure how quickly the 
 state will change to what we want. We can do this:
 
+```php
+public function testSubmitComments()
+{
+    $comment = "This is a very insightful comment.";
+    $this->byId('comments')->click();
+    $this->keys($comment);
+    $this->byId('submit')->submit();
+    $driver = $this;
 
-    public function testSubmitComments()
-    {
-        $comment = "This is a very insightful comment.";
-        $this->byId('comments')->click();
-        $this->keys($comment);
-        $this->byId('submit')->submit();
-        $driver = $this;
+    $comment_test = function() use ($comment, $driver) {
+        return ($driver->byId('your_comments')->text() == "Your comments: $comment");
+    };
 
-        $comment_test = function() use ($comment, $driver) {
-            return ($driver->byId('your_comments')->text() == "Your comments: $comment");
-        };
-
-        $this->spinAssert("Comment never showed up!", $comment_test);
-    }
+    $this->spinAssert("Comment never showed up!", $comment_test);
+}
+```
 
 This will submit a comment and wait for up to 10 seconds for the comment to show 
 up before declaring the test failed.
