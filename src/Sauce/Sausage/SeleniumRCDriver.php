@@ -16,8 +16,8 @@ class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
     public function start()
     {
         foreach (array('browserUrl', 'username', 'access_key', 'browser', 'browser_version', 'os') as $data) {
-            if ($this->$data == NULL) {
-                throw new \PHPUnit_Framework_Exception("set $data () needs to be called before start().");
+            if ($this->$data === NULL) {
+                throw new \PHPUnit_Framework_Exception("set$data() needs to be called before start().");
             }
         }
 

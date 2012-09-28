@@ -6,6 +6,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
 
     protected $job_id;
+    protected $is_local_test = false;
 
     public function setupSpecificBrowser($browser)
     {
@@ -15,7 +16,13 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 
     protected function getDriver(array $browser)
     {
-        SauceTestCommon::RequireSauceConfig();
+        $local = isset($browser['local']) && $browser['local'];
+        $this->is_local_test = $local;
+
+        if (!$local)
+            SauceTestCommon::RequireSauceConfig();
+        else
+            unset($browser['local']);
 
         $defaults = array(
             'browser' => 'firefox',
@@ -23,10 +30,23 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             'os' => 'Windows 2008',
             'timeout' => 30,
             'httpTimeout' => 45,
+            'name' => get_called_class().'::'.$this->getName()
+        );
+
+        $local_defaults = array(
+            'browser' => 'firefox',
+            'timeout' => 30,
+            'httpTimeout' => 45,
+            'host' => 'localhost',
+            'port' => 4444,
             'name' => get_called_class().'::'.$this->getName(),
         );
 
-        $browser = array_merge($defaults, $browser);
+        if ($local)
+            $browser = array_merge($local_defaults, $browser);
+        else
+            $browser = array_merge($defaults, $browser);
+
         $checks = array(
             'name' => 'string',
             'browser' => 'string',
@@ -35,6 +55,10 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             'httpTimeout' => 'int',
             'os' => 'string'
         );
+        if ($local) {
+            unset($checks['browserVersion']);
+            unset($checks['os']);
+        }
 
         foreach ($checks as $key => $type) {
             $func = 'is_'.$type;
@@ -45,15 +69,23 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             }
         }
 
-        $driver = new SeleniumRCDriver();
+        if ($local)
+            $driver = new \PHPUnit_Extensions_SeleniumTestCase_Driver();
+        else
+            $driver = new SeleniumRCDriver();
+        if (!$local) {
+            $driver->setUsername(SAUCE_USERNAME);
+            $driver->setAccessKey(SAUCE_API_KEY);
+            $driver->setOs($browser['os']);
+            $driver->setBrowserVersion($browser['browserVersion']);
+            $driver->setHost('ondemand.saucelabs.com');
+            $driver->setPort(80);
+        } else {
+            $driver->setHost($browser['host']);
+            $driver->setPort($browser['port']);
+        }
         $driver->setName($browser['name']);
-        $driver->setUsername(SAUCE_USERNAME);
-        $driver->setAccessKey(SAUCE_API_KEY);
-        $driver->setOs($browser['os']);
         $driver->setBrowser($browser['browser']);
-        $driver->setBrowserVersion($browser['browserVersion']);
-        $driver->setHost('ondemand.saucelabs.com');
-        $driver->setPort(80);
         $driver->setTimeout($browser['timeout']);
         $driver->setHttpTimeout($browser['httpTimeout']);
         $driver->setTestCase($this);
@@ -79,7 +111,9 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 
     public function tearDown()
     {
-        SauceTestCommon::ReportStatus($this->job_id, !$this->hasFailed());
+        if (!$this->is_local_test) {
+            SauceTestCommon::ReportStatus($this->job_id, !$this->hasFailed());
+        }
     }
 
     public function spinAssert($msg, $test, $args=array(), $timeout=10)

@@ -6,9 +6,13 @@ class SeleniumRCDemo extends Sauce\Sausage\SeleniumRCTestCase
 {
     public static $browsers = array(
         array(
+            //'browser' => 'firefox',
+            //'browserVersion' => '11',
+            //'os' => 'Windows 2003'
+        //),
+        //array(
             'browser' => 'firefox',
-            'browserVersion' => '11',
-            'os' => 'Windows 2003'
+            'local' => true
         )
     );
 
@@ -30,7 +34,11 @@ class SeleniumRCDemo extends Sauce\Sausage\SeleniumRCTestCase
     public function testLink()
     {
         $this->click('id=i am a link');
-        $this->assertTitle("I am another page title - Sauce Labs");
+        $driver = $this;
+        $title_test = function() use ($driver) {
+            return ($driver->getTitle() == "I am another page title - Sauce Labs");
+        };
+        $this->spinAssert("Title never matched!", $title_test);
     }
 
     public function testTextbox()
