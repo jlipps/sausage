@@ -33,15 +33,10 @@ file in your project root. A minimal example composer.json would look like:
 ```json
 {
     "require": {
-        "sauce/sausage": "dev-master"
-    },
-    "minimum-stability": "dev"
+        "sauce/sausage": ">=0.4.0"
+    }
 }
 ```
-
-(_Note_: this `composer.json` asks for `dev-master`, which means the latest and 
-greatest but maybe not the most stable. You can also ask for a tagged release
-like `>=0.3.3` and change the `minimum-stability` setting)
 
 If you haven't already got Composer installed, get it thusly:
 
