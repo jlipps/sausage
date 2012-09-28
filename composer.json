@@ -11,12 +11,11 @@
     "homepage": "http://www.saucelabs.com",
     "role": "Lead"
   }],
-  "minimum-stability": "dev",
   "require": {
     "php": ">=5.3.0",
-    "sauce/sausage-installer": "dev-master",
-    "phpunit/phpunit-selenium": "dev-master",
-    "jlipps/paraunit": "dev-master"
+    "sauce/sausage-installer": ">=0.1.0",
+    "phpunit/phpunit-selenium": ">=1.2.9",
+    "jlipps/paraunit": ">=0.1.0"
   },
   "autoload": {
     "psr-0": {"Sauce": "src/"}
