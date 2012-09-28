@@ -6,12 +6,18 @@ class SeleniumRCDemo extends Sauce\Sausage\SeleniumRCTestCase
 {
     public static $browsers = array(
         // FF 11 on Sauce
-        //array(
-            //'browser' => 'firefox',
-            //'browserVersion' => '11',
-            //'os' => 'Windows 2003'
-        //),
-        //// Chrome on local machine
+        array(
+            'browser' => 'firefox',
+            'browserVersion' => '11',
+            'os' => 'Windows 2003'
+        ),
+        // Chrome on Linux on Sauce
+        array(
+            'browser' => 'googlechrome',
+            'browserVersion' => '',
+            'os' => 'Linux'
+        ),
+        // Chrome on local machine
         array(
             'browser' => 'googlechrome',
             'local' => true
