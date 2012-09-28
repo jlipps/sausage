@@ -12,7 +12,7 @@ class SauceConfig
         if (!defined('SAUCE_USERNAME') && !defined('SAUCE_API_KEY')) {
             if (is_file(CONFIG_PATH)) {
                 $config = file_get_contents(CONFIG_PATH);
-                list($username, $api_key) = split(',', $config);
+                list($username, $api_key) = explode(',', $config);
                 $username = trim($username);
                 $api_key = trim($api_key);
             } elseif (getenv('SAUCE_USERNAME') && getenv('SAUCE_ACCESS_KEY')) {
