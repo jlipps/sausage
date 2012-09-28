@@ -99,7 +99,6 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     protected function prepareTestSession()
     {
         $this->job_id = parent::prepareTestSession();
-        //$this->setContext("sauce:job-name=".get_called_class().'::'.$this->getName());
         $this->postSessionSetUp();
         return $this->job_id;
     }

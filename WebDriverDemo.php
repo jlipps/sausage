@@ -12,14 +12,14 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
                 'version' => '15',
                 'platform' => 'VISTA'
             )
-        ),
-        // run Chrome on Linux on Sauce
-        array(
-            'browserName' => 'chrome',
-            'desiredCapabilities' => array(
-                'platform' => 'Linux'
-          )
         )//,
+        // run Chrome on Linux on Sauce
+        //array(
+            //'browserName' => 'chrome',
+            //'desiredCapabilities' => array(
+                //'platform' => 'Linux'
+          //)
+        //),
         // run Chrome locally
         //array(
             //'browserName' => 'chrome',

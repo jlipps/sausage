@@ -5,6 +5,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
 
     protected $start_url = '';
+    protected $is_local_test = false;
 
     public function setUp()
     {
@@ -18,7 +19,12 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public function setupSpecificBrowser($params)
     {
-        SauceTestCommon::RequireSauceConfig();
+        // Setting 'local' gives us nice defaults of localhost:4444
+        $local = (isset($params['local']) && $params['local']);
+        $this->is_local_test = $local;
+
+        if (!$local)
+            SauceTestCommon::RequireSauceConfig();
 
         // Give some nice defaults
         if (!isset($params['seleniumServerRequestsTimeout']))
@@ -32,8 +38,6 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             );
         }
 
-        // Setting 'local' gives us nice defaults of localhost:4444
-        $local = (isset($params['local']) && $params['local']);
 
         // Set up host
         $sauce_host = SAUCE_USERNAME.':'.SAUCE_API_KEY.'@ondemand.saucelabs.com';
@@ -100,7 +104,8 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public function tearDown()
     {
-        SauceTestCommon::ReportStatus($this->getSessionId(), !$this->hasFailed());
+        if (!$this->is_local_test)
+            SauceTestCommon::ReportStatus($this->getSessionId(), !$this->hasFailed());
     }
 
     public function spinAssert($msg, $test, $args=array(), $timeout=10)
