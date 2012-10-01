@@ -17,6 +17,9 @@
     "phpunit/phpunit-selenium": ">=1.2.9",
     "jlipps/paraunit": ">=0.1.0"
   },
+  "suggest": {
+    "sauce/connect": "Allows testing of local/firewalled applications through use of Sauce Connect"
+  },
   "autoload": {
     "psr-0": {"Sauce": "src/"}
   },
@@ -24,5 +27,5 @@
     "email": "help@saucelabs.com",
     "irc": "irc://irc.freenode.org/saucelabs"
   },
-  "bin": ["bin/sauce_connect", "bin/sauce_config"]
+  "bin": ["bin/sauce_config"]
 }
