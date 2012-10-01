@@ -18,7 +18,7 @@
     "jlipps/paraunit": ">=0.1.0"
   },
   "suggest": {
-    "sauce/connect": "Allows testing of local/firewalled applications through use of Sauce Connect"
+    "sauce/connect": ">=3.0"
   },
   "autoload": {
     "psr-0": {"Sauce": "src/"}
