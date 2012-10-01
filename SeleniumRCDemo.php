@@ -10,18 +10,18 @@ class SeleniumRCDemo extends Sauce\Sausage\SeleniumRCTestCase
             'browser' => 'firefox',
             'browserVersion' => '11',
             'os' => 'Windows 2003'
-        ),
-        // Chrome on Linux on Sauce
-        array(
-            'browser' => 'googlechrome',
-            'browserVersion' => '',
-            'os' => 'Linux'
-        ),
-        // Chrome on local machine
-        array(
-            'browser' => 'googlechrome',
-            'local' => true
-        )
+        )//,
+         //Chrome on Linux on Sauce
+        //array(
+            //'browser' => 'googlechrome',
+            //'browserVersion' => '',
+            //'os' => 'Linux'
+        //),
+         //Chrome on local machine
+        //array(
+            //'browser' => 'googlechrome',
+            //'local' => true
+        //)
     );
 
     public function setUp()
