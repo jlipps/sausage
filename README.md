@@ -6,7 +6,7 @@ classes and libraries that make it easy to run your Selenium tests, either
 locally or on Sauce Labs. You run the tests with [PHPUnit](http://phpunit.de).
 
 Sausage comes bundled with [Paraunit](http://github.com/jlipps/paraunit) (for 
-running your PHPUnit tests in parallel) and 
+running your PHPUnit tests in parallel) and optionally
 [Sauce Connect](http://saucelabs.com/docs/connect) (for testing locally-hosted 
 sites with Sauce).
 
@@ -216,6 +216,20 @@ condition without necessarily asserting anything of it.
 
 Sauce Connect
 ---
+Sauce Connect is a special tunnel-creating binary application (see the [Sauce
+Connect Docs](http://saucelabs.com/docs/connect)). It is bundled as another
+composer package (`sauce/connect`), which you can add to your `composer.json`
+requirements:
+
+```json
+{
+  "require": {
+    "sauce/sausage": ">=0.5",
+    "sauce/connect": ">=3.0"
+  }
+}
+```
+
 If you've already run `vendor/bin/sauce_config` or otherwise set your Sauce 
 credentials, starting sauce connect is as easy as:
 
