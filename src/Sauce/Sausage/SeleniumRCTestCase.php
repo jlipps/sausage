@@ -30,6 +30,8 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             'os' => 'Windows 2008',
             'timeout' => 30,
             'httpTimeout' => 45,
+            'host' => 'ondemand.saucelabs.com',
+            'port' => 80,
             'name' => get_called_class().'::'.$this->getName()
         );
 
@@ -78,12 +80,9 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             $driver->setAccessKey(SAUCE_API_KEY);
             $driver->setOs($browser['os']);
             $driver->setBrowserVersion($browser['browserVersion']);
-            $driver->setHost('ondemand.saucelabs.com');
-            $driver->setPort(80);
-        } else {
-            $driver->setHost($browser['host']);
-            $driver->setPort($browser['port']);
         }
+        $driver->setHost($browser['host']);
+        $driver->setPort($browser['port']);
         $driver->setName($browser['name']);
         $driver->setBrowser($browser['browser']);
         $driver->setTimeout($browser['timeout']);
