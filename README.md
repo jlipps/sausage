@@ -21,7 +21,15 @@ details.
 Quickstart
 ----------
 Check out [sausage-bun](http://github.com/jlipps/sausage-bun). It's a one-line 
-script you can run via curl and PHP to get everything going.
+script you can run via curl and PHP to get everything going. For example:
+
+```
+curl -s https://raw.github.com/jlipps/sausage-bun/master/givememysausage.php | php
+```
+
+_Note_: if you are a Windows user who's not using Cygwin, it'll take a little
+extra work to set you up---please see the [sausage-bun
+README](http://github.com/jlipps/sausage-bun)
 
 Manual Install
 ------------
@@ -38,7 +46,7 @@ file in your project root. A minimal example composer.json would look like:
 }
 ```
 
-If you haven't already got Composer installed, get it thusly:
+If you haven't already got Composer installed, get it thusly (for *nix/Mac):
 
     curl -s http://getcomposer.org/installer | php
 
@@ -52,6 +60,10 @@ variables set, you'll now need to configure Sausage for use with your Sauce
 account:
 
     vendor/bin/sauce_config YOUR_SAUCE_USERNAME YOUR_SAUCE_API_KEY
+
+(Or for Windows):
+
+    vendor\bin\sauce_config.bat YOUR_SAUCE_USERNAME YOUR_SAUCE_API_KEY
 
 (It's a Composer convention for package binaries to be located in `vendor/bin`;
 you can always symlink things elsewhere if it's more convenient).
@@ -71,6 +83,10 @@ If everything's set up correctly, you should be able to run this:
 
     vendor/bin/phpunit vendor/sauce/sausage/WebDriverDemo.php
 
+(Or for Windows):
+
+    vendor\bin\phpunit.bat vendor\sauce\sausage\WebDriverDemo.php
+
 And start seeing tests pass. (While the tests are running, you can check on 
 their progress by going to your [Sauce tests
 page](http://saucelabs.com/tests))
@@ -81,6 +97,10 @@ Running Selenium tests one at a time is like eating one cookie at a time. Let's
 do it all at once! Try this:
 
     vendor/bin/paraunit -p2 --path=vendor/sauce/sausage/WebDriverDemo.php 
+
+(Or for Windows):
+
+    vendor\bin\paraunit.bat --processes=2 --path=vendor\sauce\sausage\WebDriverDemo.php
 
 Now they'll finish twice as fast! (And if you get a [Sauce Labs
 account](http://saucelabs.com/pricing), you can 
@@ -234,6 +254,10 @@ If you've already run `vendor/bin/sauce_config` or otherwise set your Sauce
 credentials, starting sauce connect is as easy as:
 
     vendor/bin/sauce_connect
+
+(Or for Windows):
+
+    vendor\bin\sauce_connect.bat
 
 Run that and you'll be testing against your local test server in no time!
 
