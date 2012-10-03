@@ -13,7 +13,7 @@ abstract class SauceTestCommon
     public static function ReportStatus($session_id, $passed)
     {
         self::RequireSauceConfig();
-        $api = new SauceAPI(SAUCE_USERNAME, SAUCE_API_KEY);
+        $api = new SauceAPI(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
         $api->updateJob($session_id, array('passed'=>$passed));
     }
 

@@ -59,11 +59,11 @@ you didn't already have the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment
 variables set, you'll now need to configure Sausage for use with your Sauce 
 account:
 
-    vendor/bin/sauce_config YOUR_SAUCE_USERNAME YOUR_SAUCE_API_KEY
+    vendor/bin/sauce_config YOUR_SAUCE_USERNAME YOUR_SAUCE_ACCESS_KEY
 
 (Or for Windows):
 
-    vendor\bin\sauce_config.bat YOUR_SAUCE_USERNAME YOUR_SAUCE_API_KEY
+    vendor\bin\sauce_config.bat YOUR_SAUCE_USERNAME YOUR_SAUCE_ACCESS_KEY
 
 (It's a Composer convention for package binaries to be located in `vendor/bin`;
 you can always symlink things elsewhere if it's more convenient).
@@ -171,7 +171,7 @@ Sausage comes bundled with a nice PHP interface to the [Sauce Labs API](https://
 ```php
 <?php 
 
-$s = new Sauce\Sausage\SauceAPI('myusername', 'myapikey');
+$s = new Sauce\Sausage\SauceAPI('myusername', 'myaccesskey');
 
 $my_details = $s->getAccountDetails();
 

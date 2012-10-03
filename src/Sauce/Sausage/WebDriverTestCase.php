@@ -40,7 +40,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
 
         // Set up host
-        $sauce_host = SAUCE_USERNAME.':'.SAUCE_API_KEY.'@ondemand.saucelabs.com';
+        $sauce_host = SAUCE_USERNAME.':'.SAUCE_ACCESS_KEY.'@ondemand.saucelabs.com';
         $host = isset($params['host']) ? $params['host'] : false;
         $this->setHost($host ? $host : ($local ? 'localhost' : $sauce_host));
 

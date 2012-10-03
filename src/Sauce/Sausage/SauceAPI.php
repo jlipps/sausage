@@ -7,16 +7,16 @@ class SauceAPI
 {
 
     protected $username;
-    protected $api_key;
+    protected $access_key;
 
-    public function __construct($username, $api_key)
+    public function __construct($username, $access_key)
     {
         if (!$username)
             throw new \Exception("Username is required for SauceAPI");
-        if (!$api_key)
-            throw new \Exception("api_key is required for SauceAPI");
+        if (!$access_key)
+            throw new \Exception("Access key is required for SauceAPI");
         $this->username = $username;
-        $this->api_key = $api_key;
+        $this->access_key = $access_key;
         $this->methods = new SauceMethods($this->username);
     }
 
@@ -34,7 +34,7 @@ class SauceAPI
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->username.":".$this->api_key);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->username.":".$this->access_key);
 
         if ($type == "POST")
             curl_setopt($ch, CURLOPT_POST, 1);

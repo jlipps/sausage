@@ -1,11 +1,11 @@
-#!/usr/bin/env php 
+#!/usr/bin/env php
 <?php
 
 require_once dirname(__FILE__).'/../src/Sauce/Sausage/SauceConfig.php';
 
 use Sauce\Sausage\SauceConfig;
 
-$USAGE = "USAGE: sauce_config USERNAME API_KEY";
+$USAGE = "USAGE: sauce_config USERNAME ACCESS_KEY";
 
 if (!isset($argv[1]) || !isset($argv[2])) {
     echo $USAGE;

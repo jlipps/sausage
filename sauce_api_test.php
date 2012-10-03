@@ -4,9 +4,9 @@ require_once "vendor/autoload.php";
 
 use Sauce\Sausage\SauceConfig;
 
-list($username, $api_key) = SauceConfig::GetConfig();
+list($username, $access_key) = SauceConfig::GetConfig();
 
-$s = new Sauce\Sausage\SauceAPI($username, $api_key);
+$s = new Sauce\Sausage\SauceAPI($username, $access_key);
 
 $res = $s->updateJob('0e2ae11933664d0ba26948d379fc67a6', array('passed'=>TRUE));
 print_r($res);

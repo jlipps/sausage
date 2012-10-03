@@ -77,7 +77,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             $driver = new SeleniumRCDriver();
         if (!$local) {
             $driver->setUsername(SAUCE_USERNAME);
-            $driver->setAccessKey(SAUCE_API_KEY);
+            $driver->setAccessKey(SAUCE_ACCESS_KEY);
             $driver->setOs($browser['os']);
             $driver->setBrowserVersion($browser['browserVersion']);
         }
