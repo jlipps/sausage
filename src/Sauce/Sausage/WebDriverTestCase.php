@@ -5,7 +5,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
 
     protected $start_url = '';
-    protected $base_url = null;
+    protected $base_url = NULL;
     protected $is_local_test = false;
 
     public function setUp()
@@ -93,13 +93,17 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         if ($element === NULL)
             $element = $this->byCssSelector('body');
 
-        $this->assertContains($text, $element->text());
+        $this->spinAssert("$text was never found", function() use ($text, $element) {
+            return strpos($element->text(), $text) !== false;
+        });
     }
 
     public function assertTextNotPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
     {
         $element = $element ?: $this->byCssSelector('body');
-        $this->assertNotContains($text, $element->text());
+        $this->spinAssert("$text was found", function() use ($text, $element) {
+            return strpos($element->text(), $text) === false;
+        });
     }
 
     public function sendKeys(\PHPUnit_Extensions_Selenium2TestCase_Element $element, $keys)
@@ -127,9 +131,9 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             throw new \Exception($msg);
     }
 
-    public function url($url = null)
+    public function url($url = NULL)
     {
-        if ($url && $this->base_url !== null && !preg_match("/^http(s):/", $url)) {
+        if ($url && $this->base_url !== NULL && !preg_match("/^http(s):/", $url)) {
             if ($url[0] == '/') {
                 $sep = '';
             } else {
