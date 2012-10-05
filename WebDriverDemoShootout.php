@@ -4,6 +4,9 @@ require_once 'vendor/autoload.php';
 
 class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
 {
+
+    protected $base_url = 'http://tutorialapp.saucelabs.com';
+
     public static $browsers = array(
         array(
             'browserName' => 'chrome',

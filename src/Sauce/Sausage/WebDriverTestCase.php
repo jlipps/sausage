@@ -129,20 +129,15 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public function url($url = null)
     {
-        if ($url !== null) {
-            if (preg_match("^http(s):", $url)) {
-                return parent::url($url);
-            } elseif ($this->base_url !== null) {
-                if ($url[0] == '/') {
-                    $sep = '';
-                } else {
-                    $sep = '/';
-                }
-                $url = trim($this->base_url, '/').$sep.$url;
-                return parent::url($url);
+        if ($url && $this->base_url !== null && !preg_match("/^http(s):/", $url)) {
+            if ($url[0] == '/') {
+                $sep = '';
+            } else {
+                $sep = '/';
             }
+            $url = trim($this->base_url, '/').$sep.$url;
         }
-        return parent::url();
+        return parent::url($url);
     }
 
 }
