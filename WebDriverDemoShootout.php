@@ -8,10 +8,13 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
     protected $base_url = 'http://tutorialapp.saucelabs.com';
 
     public static $browsers = array(
+        // run FF15 on Vista on Sauce
         array(
-            'browserName' => 'chrome',
-            'local' => true
-        )
+            'browserName' => 'firefox',
+            'desiredCapabilities' => array(
+                'version' => '15',
+                'platform' => 'VISTA'
+            )
     );
 
     protected function randomUser()
