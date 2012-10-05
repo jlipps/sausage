@@ -15,6 +15,7 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
                 'version' => '15',
                 'platform' => 'VISTA'
             )
+        )
     );
 
     protected function randomUser()
