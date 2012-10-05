@@ -24,6 +24,13 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
 
     protected function doRegister($user)
     {
+        $this->url('/register');
+        $this->byId('username')->value($user['username']);
+        $this->byId('password')->value($user['password']);
+        $this->byId('confirm_password')->value($user['password']);
+        $this->byId('name')->value($user['name']);
+        $this->byId('email')->value($user['email']);
+        $this->byId('email')->submit();
     }
 
     public function setUp()
@@ -32,7 +39,7 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
         $this->setBrowserUrl('http://tutorialapp.saucelabs.com');
     }
 
-    public function testLoginFails()
+    public function testLoginFailsWithBadCredentials()
     {
         $fake_username = uniqid();
         $fake_password = uniqid();
@@ -43,4 +50,13 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
 
         $this->assertTextPresent("Failed to login.", $this->byId('message'));
     }
+
+    public function testRegister()
+    {
+        $user = $this->randomUser();
+        $this->doRegister($user);
+        $logged_in_text = "You are logged in as {$user['username']}";
+        $this->assertTextPresent($logged_in_text);
+    }
+
 }

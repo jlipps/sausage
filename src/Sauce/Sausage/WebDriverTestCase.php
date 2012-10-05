@@ -5,6 +5,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
 
     protected $start_url = '';
+    protected $base_url = null;
     protected $is_local_test = false;
 
     public function setUp()
@@ -124,6 +125,24 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         list($result, $msg) = SauceTestCommon::SpinAssert($msg, $test, $args, $timeout);
         if (!$result)
             throw new \Exception($msg);
+    }
+
+    public function url($url = null)
+    {
+        if ($url !== null) {
+            if (preg_match("^http(s):", $url)) {
+                return parent::url($url);
+            } elseif ($this->base_url !== null) {
+                if ($url[0] == '/') {
+                    $sep = '';
+                } else {
+                    $sep = '/';
+                }
+                $url = trim($this->base_url, '/').$sep.$url;
+                return parent::url($url);
+            }
+        }
+        return parent::url();
     }
 
 }
