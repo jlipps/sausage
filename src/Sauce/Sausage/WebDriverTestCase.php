@@ -106,6 +106,11 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         });
     }
 
+    public function byCss($selector)
+    {
+        return parent::byCssSelector($selector);
+    }
+
     public function sendKeys(\PHPUnit_Extensions_Selenium2TestCase_Element $element, $keys)
     {
         $element->click();

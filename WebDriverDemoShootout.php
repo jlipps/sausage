@@ -25,15 +25,36 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
         );
     }
 
-    protected function doRegister($user)
+    protected function doLogin($username, $password)
     {
+        $this->url('/');
+        $this->byName('login')->value($username);
+        $this->byName('password')->value($password);
+        $this->byCss('input.login')->click();
+
+        $this->assertTextPresent("Logged in successfully", $this->byId('message'));
+    }
+
+    protected function doLogout()
+    {
+        $this->url('/logout');
+        $this->assertTextPresent("Logged out successfully", $this->byId('message'));
+    }
+
+    protected function doRegister($user, $logout = false)
+    {
+        $user['confirm_password'] = isset($user['confirm_password']) ?
+            $user['confirm_password'] : $user['password'];
         $this->url('/register');
         $this->byId('username')->value($user['username']);
         $this->byId('password')->value($user['password']);
-        $this->byId('confirm_password')->value($user['password']);
+        $this->byId('confirm_password')->value($user['confirm_password']);
         $this->byId('name')->value($user['name']);
         $this->byId('email')->value($user['email']);
-        $this->byId('email')->submit();
+        $this->byId('form.submitted')->click();
+
+        if ($logout)
+            $this->doLogout();
     }
 
     public function setUp()
@@ -49,9 +70,21 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
 
         $this->byName('login')->value($fake_username);
         $this->byName('password')->value($fake_password);
-        $this->byName('password')->submit();
+        $this->byCss('input.login')->click();
 
         $this->assertTextPresent("Failed to login.", $this->byId('message'));
+    }
+
+    public function testLogout()
+    {
+        $this->doRegister($this->randomUser(), true);
+    }
+
+    public function testLogin()
+    {
+        $user = $this->randomUser();
+        $this->doRegister($user, true);
+        $this->doLogin($user['username'], $user['password']);
     }
 
     public function testRegister()
@@ -60,6 +93,46 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
         $this->doRegister($user);
         $logged_in_text = "You are logged in as {$user['username']}";
         $this->assertTextPresent($logged_in_text);
+    }
+
+    public function testRegisterFailsWithoutUsername()
+    {
+        $user = $this->randomUser();
+        $user['username'] = '';
+        $this->doRegister($user);
+        $this->assertTextPresent("Please enter a value");
+    }
+
+    public function testRegisterFailsWithoutName()
+    {
+        $user = $this->randomUser();
+        $user['name'] = '';
+        $this->doRegister($user);
+        $this->assertTextPresent("Please enter a value");
+    }
+
+    public function testRegisterFailsWithMismatchedPasswords()
+    {
+        $user = $this->randomUser();
+        $user['confirm_password'] = uniqid();
+        $this->doRegister($user);
+        $this->assertTextPresent("Fields do not match");
+    }
+
+    public function testRegisterFailsWithBadEmail()
+    {
+        $user = $this->randomUser();
+        $user['email'] = 'test';
+        $this->doRegister($user);
+        $this->assertTextPresent("An email address must contain a single @");
+        $this->byId('email')->clear();
+        $this->byId('email')->value('@bob.com');
+        $this->byId('form.submitted')->click();
+        $this->assertTextPresent("The username portion of the email address is invalid");
+        $this->byId('email')->clear();
+        $this->byId('email')->value('test@bob');
+        $this->byId('form.submitted')->click();
+        $this->assertTextPresent("The domain portion of the email address is invalid");
     }
 
 }
