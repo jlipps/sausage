@@ -20,7 +20,7 @@ class SauceConfig
                 $access_key = getenv('SAUCE_ACCESS_KEY');
             } elseif ($fail_if_no_config) {
                 $msg = <<<EOF
-We could not find your Sauce username or API key (which you can get from
+We could not find your Sauce username or access key (which you can get from
 https://saucelabs.com/account). You have two options for setting them:
 
 1) run vendor/bin/sauce_config USERNAME access_kEY
