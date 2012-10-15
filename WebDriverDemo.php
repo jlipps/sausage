@@ -58,17 +58,14 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
     public function testSubmitComments()
     {
         $comment = "This is a very insightful comment.";
-        $this->byId('comments')->click();
-        $this->keys($comment);
+        $this->byId('comments')->value($comment);
         $this->byId('submit')->submit();
         $driver = $this;
 
-        $comment_test =
-            function() use ($comment, $driver)
-            {
-                return ($driver->byId('your_comments')->text() == "Your comments: $comment");
-            }
-        ;
+        $comment_test = function() use ($comment, $driver) {
+            $text = $driver->byId('your_comments')->text();
+            return $text == "Your comments: $comment";
+        };
 
         $this->spinAssert("Comment never showed up!", $comment_test);
 
