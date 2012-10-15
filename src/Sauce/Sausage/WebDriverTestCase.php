@@ -154,7 +154,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         return parent::url($this->buildUrl($url));
     }
 
-    public function setBrowserUrl($url = '');
+    public function setBrowserUrl($url = '')
     {
         return parent::setBrowserUrl($this->buildUrl($url));
     }
