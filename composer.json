@@ -14,7 +14,7 @@
   "require": {
     "php": ">=5.3.0",
     "sauce/sausage-installer": ">=0.1.0",
-    "phpunit/phpunit-selenium": ">=1.2.9",
+    "phpunit/phpunit-selenium": ">=1.2.10",
     "jlipps/paraunit": ">=0.1.0"
   },
   "suggest": {
