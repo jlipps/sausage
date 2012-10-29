@@ -28,7 +28,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             'browser' => 'firefox',
             'browserVersion' => '11',
             'os' => 'Windows 2008',
-            'timeout' => 30,
+            'timeout' => 60,
             'httpTimeout' => 45,
             'host' => 'ondemand.saucelabs.com',
             'port' => 80,
