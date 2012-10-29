@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 {
     public static $browsers = array(
-        // run FF15 on Vista on Sauce
+        // run FF15 on Windows 8 on Sauce
         array(
             'browserName' => 'firefox',
             'desiredCapabilities' => array(
