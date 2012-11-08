@@ -79,16 +79,16 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
         $this->assertTextPresent("Failed to login.", $this->byId('message'));
     }
 
-    public function testLogout()
-    {
-        $this->doRegister($this->randomUser(), true);
-    }
-
     public function testLogin()
     {
         $user = $this->randomUser();
         $this->doRegister($user, true);
         $this->doLogin($user['username'], $user['password']);
+    }
+
+    public function testLogout()
+    {
+        $this->doRegister($this->randomUser(), true);
     }
 
     public function testRegister()

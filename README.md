@@ -5,7 +5,7 @@ Your one-stop shop for everything Selenium + Sauce Labs + PHP. This is a set of
 classes and libraries that make it easy to run your Selenium tests, either
 locally or on Sauce Labs. You run the tests with [PHPUnit](http://phpunit.de).
 
-Sausage comes bundled with [Paraunit](http://github.com/jlipps/paraunit) (for 
+Sausage comes bundled with [Paratest](http://github.com/brianium/paratest) (for 
 running your PHPUnit tests in parallel) and optionally
 [Sauce Connect](http://saucelabs.com/docs/connect) (for testing locally-hosted 
 sites with Sauce).
@@ -96,11 +96,11 @@ Running tests in parallel
 Running Selenium tests one at a time is like eating one cookie at a time. Let's
 do it all at once! Try this:
 
-    vendor/bin/paraunit -p2 --path=vendor/sauce/sausage/WebDriverDemo.php 
+    vendor/bin/paratest -processes 2 --path vendor/sauce/sausage/WebDriverDemo.php --functional
 
 (Or for Windows):
 
-    vendor\bin\paraunit.bat --processes=2 --path=vendor\sauce\sausage\WebDriverDemo.php
+    vendor\bin\paratest.bat --processes 2 --path vendor\sauce\sausage\WebDriverDemo.php --functional
 
 Now they'll finish twice as fast! (And if you get a [Sauce Labs
 account](http://saucelabs.com/pricing), you can 
