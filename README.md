@@ -5,12 +5,12 @@ Your one-stop shop for everything Selenium + Sauce Labs + PHP. This is a set of
 classes and libraries that make it easy to run your Selenium tests, either
 locally or on Sauce Labs. You run the tests with [PHPUnit](http://phpunit.de).
 
-Sausage comes bundled with [Paratest](http://github.com/brianium/paratest) (for 
+Sausage comes bundled with [Paratest](http://github.com/brianium/paratest) (for
 running your PHPUnit tests in parallel) and optionally
-[Sauce Connect](http://saucelabs.com/docs/connect) (for testing locally-hosted 
+[Sauce Connect](http://saucelabs.com/docs/connect) (for testing locally-hosted
 sites with Sauce).
 
-Read the rest of this page for installation and usage instructions designed 
+Read the rest of this page for installation and usage instructions designed
 to help you get the most out of your sausage.
 
 License
@@ -20,7 +20,7 @@ details.
 
 Quickstart
 ----------
-Check out [sausage-bun](http://github.com/jlipps/sausage-bun). It's a one-line 
+Check out [sausage-bun](http://github.com/jlipps/sausage-bun). It's a one-line
 script you can run via curl and PHP to get everything going. For example:
 
 ```
@@ -33,9 +33,9 @@ README](http://github.com/jlipps/sausage-bun)
 
 Manual Install
 ------------
-Sausage is distributed as a [Composer](http://getcomposer.org) package via 
-[Packagist](http://packagist.org/), 
-under the package `sauce/sausage`. To get it, add (or update) the `composer.json` 
+Sausage is distributed as a [Composer](http://getcomposer.org) package via
+[Packagist](http://packagist.org/),
+under the package `sauce/sausage`. To get it, add (or update) the `composer.json`
 file in your project root. A minimal example composer.json would look like:
 
 ```json
@@ -54,9 +54,9 @@ Then, install the packages (or `update` if you've already set up Composer):
 
     php composer.phar install
 
-This will install Sausage and all its dependences (like PHPUnit, etc...). If 
+This will install Sausage and all its dependences (like PHPUnit, etc...). If
 you didn't already have the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment
-variables set, you'll now need to configure Sausage for use with your Sauce 
+variables set, you'll now need to configure Sausage for use with your Sauce
 account:
 
     vendor/bin/sauce_config YOUR_SAUCE_USERNAME YOUR_SAUCE_ACCESS_KEY
@@ -70,11 +70,11 @@ you can always symlink things elsewhere if it's more convenient).
 
 Requirements
 ---
-* Sausage will work on any modern (>= 5.3) PHP installation 
-* Composer's requirements must also be satisfied (unfortunately, I could not 
-  find these documented anywhere). Suffice it to say they're normal requirements 
+* Sausage will work on any modern (>= 5.3) PHP installation
+* Composer's requirements must also be satisfied (unfortunately, I could not
+  find these documented anywhere). Suffice it to say they're normal requirements
   like the cURL extension, `safe_mode` off, `allow_url_fopen`, etc...
-* If you're on a Windows machine, you might want to set up all your PHP stuff 
+* If you're on a Windows machine, you might want to set up all your PHP stuff
   in [Cygwin](http://cygwin.com)
 
 Getting Started
@@ -87,7 +87,7 @@ If everything's set up correctly, you should be able to run this:
 
     vendor\bin\phpunit.bat vendor\sauce\sausage\WebDriverDemo.php
 
-And start seeing tests pass. (While the tests are running, you can check on 
+And start seeing tests pass. (While the tests are running, you can check on
 their progress by going to your [Sauce tests
 page](http://saucelabs.com/tests))
 
@@ -103,18 +103,18 @@ do it all at once! Try this:
     vendor\bin\paratest.bat --processes=2 --path=vendor\sauce\sausage\WebDriverDemo.php --functional
 
 Now they'll finish twice as fast! (And if you get a [Sauce Labs
-account](http://saucelabs.com/pricing), you can 
+account](http://saucelabs.com/pricing), you can
 bump up that concurrency to 4, 10, 20, 30, or more!)
 
 Writing WebDriver tests
 ---
-Writing tests for Selenium 2 (WebDriver) is easy and straightforward. Sausage 
+Writing tests for Selenium 2 (WebDriver) is easy and straightforward. Sausage
 is by default built on top of
-[PHPUnit_Selenium](http://github.com/sebastianbergmann/phpunit-selenium). All 
-commands that work in `PHPUnit_Extensions_Selenium2TestCase` also work in 
+[PHPUnit_Selenium](http://github.com/sebastianbergmann/phpunit-selenium). All
+commands that work in `PHPUnit_Extensions_Selenium2TestCase` also work in
 Sausage's `WebDriverTestCase`. Here's a simple example:
 
-```php    
+```php
 <?php
 
 require_once 'vendor/autoload.php';
@@ -154,7 +154,7 @@ class MyAwesomeTestCase extends Sauce\Sausage\WebDriverTestCase
 }
 ```
 
-In this example, we define a set of browsers to use, and run a simple check 
+In this example, we define a set of browsers to use, and run a simple check
 to make sure that clicking on a link gets us to the expected new page.
 
 For more examples, check out:
@@ -169,7 +169,7 @@ Sauce Labs API
 Sausage comes bundled with a nice PHP interface to the [Sauce Labs API](https://saucelabs.com/docs/rest):
 
 ```php
-<?php 
+<?php
 
 $s = new Sauce\Sausage\SauceAPI('myusername', 'myaccesskey');
 
@@ -192,23 +192,32 @@ boasting 100% support). Also check out `sauce_api_test.php` for other examples.
 
 Automatic Test Naming
 ---
-By default, Sauce Labs doesn't know how to display the name of your test. Sausage 
-comes up with a good name (`TestClass::testFunction`) and reports it with your 
+By default, Sauce Labs doesn't know how to display the name of your test. Sausage
+comes up with a good name (`TestClass::testFunction`) and reports it with your
 test so it's easy to find on your [tests page](http://saucelabs.com/tests).
 
 Automatic Test Status Reporting
 ---
-Since Selenium commands might be successful but your test still fails because 
-of an assertion, there is in principle no way for Sauce Labs to know whether a 
-particular run was a pass or fail. Sausage catches any failed assertions and 
-makes sure to report the status of the test to Sauce after it's complete, so 
-as you're looking at your log of tests you can easily see which passed and which 
+Since Selenium commands might be successful but your test still fails because
+of an assertion, there is in principle no way for Sauce Labs to know whether a
+particular run was a pass or fail. Sausage catches any failed assertions and
+makes sure to report the status of the test to Sauce after it's complete, so
+as you're looking at your log of tests you can easily see which passed and which
 failed.
+
+Build IDs
+----
+If you're running your tests as part of your build, you can define a build id,
+either by updating the browser arrays to include a 'build' parameter, or
+(more reasonably), defining an environment variable `SAUCE_BUILD`, like so:
+
+    SAUCE_BUILD=build-1234 vendor/bin/phpunit MyAwesomeTestCase.php
+
 
 SpinAsserts
 ---
 SpinAsserts are awesome and [you should really use them](http://sauceio.com/index.php/2011/04/how-to-lose-races-and-win-at-selenium/). Luckily, Sausage comes with a SpinAssert framework built in.
-Let's say we want to perform a check and we're not exactly sure how quickly the 
+Let's say we want to perform a check and we're not exactly sure how quickly the
 state will change to what we want. We can do this:
 
 ```php
@@ -228,7 +237,7 @@ public function testSubmitComments()
 }
 ```
 
-This will submit a comment and wait for up to 10 seconds for the comment to show 
+This will submit a comment and wait for up to 10 seconds for the comment to show
 up before declaring the test failed.
 
 The `spinWait` function is similar and allows you to wait for a certain
@@ -250,7 +259,7 @@ requirements:
 }
 ```
 
-If you've already run `vendor/bin/sauce_config` or otherwise set your Sauce 
+If you've already run `vendor/bin/sauce_config` or otherwise set your Sauce
 credentials, starting sauce connect is as easy as:
 
     vendor/bin/sauce_connect
