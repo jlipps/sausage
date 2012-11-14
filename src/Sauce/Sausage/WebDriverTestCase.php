@@ -7,6 +7,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     protected $start_url = '';
     protected $base_url = NULL;
     protected $is_local_test = false;
+    protected $build = false;
 
     public function setUp()
     {
@@ -16,6 +17,17 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             $this->setDesiredCapabilities($caps);
         }
         $this->setBrowserUrl($this->start_url);
+    }
+
+
+    public function setBuild($build)
+    {
+        $this->build = $build;
+    }
+
+    public function getBuild()
+    {
+        return $this->build;
     }
 
     public function setupSpecificBrowser($params)
@@ -60,6 +72,9 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         $this->setDesiredCapabilities($caps);
         $this->setSeleniumServerRequestsTimeout(
             $params['seleniumServerRequestsTimeout']);
+        $build = isset($params['build']) ? $params['build'] : SauceConfig::GetBuild();
+        if ($build)
+            $this->setBuild($build);
 
         // If we're using Sauce, make sure we don't try to share browsers
         if (!$local && !$host && isset($params['sessionStrategy'])) {
@@ -115,6 +130,14 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     {
         $element->click();
         $this->keys($keys);
+    }
+
+
+    public function prepareSession()
+    {
+        parent::prepareSession();
+        if ($this->getBuild())
+            SauceTestCommon::ReportBuild($this->getSessionId(), $this->getBuild());
     }
 
     public function tearDown()

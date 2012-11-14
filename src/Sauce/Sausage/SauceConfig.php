@@ -37,12 +37,24 @@ EOF;
             define('SAUCE_USERNAME', $username);
             define('SAUCE_ACCESS_KEY', $access_key);
         }
+        if (!defined('SAUCE_BUILD') && getenv('SAUCE_BUILD')) {
+            define('SAUCE_BUILD', getenv('SAUCE_BUILD'));
+        }
     }
 
     public static function GetConfig($fail_if_no_config = true)
     {
         self::LoadConfig($fail_if_no_config);
         return array(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
+    }
+
+    public static function GetBuild()
+    {
+        self::LoadConfig(false);
+        if (defined('SAUCE_BUILD')) {
+            return SAUCE_BUILD;
+        }
+        return false;
     }
 
     public static function WriteConfig($username, $access_key) {

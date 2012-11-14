@@ -7,6 +7,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 
     protected $job_id;
     protected $is_local_test = false;
+    protected $build = false;
 
     public function setupSpecificBrowser($browser)
     {
@@ -19,10 +20,12 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $local = isset($browser['local']) && $browser['local'];
         $this->is_local_test = $local;
 
-        if (!$local)
+        if (!$local) {
             SauceTestCommon::RequireSauceConfig();
-        else
+            $build = SauceConfig::GetBuild();
+        } else {
             unset($browser['local']);
+        }
 
         $defaults = array(
             'browser' => 'firefox',
@@ -80,6 +83,9 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             $driver->setAccessKey(SAUCE_ACCESS_KEY);
             $driver->setOs($browser['os']);
             $driver->setBrowserVersion($browser['browserVersion']);
+            $build = isset($browser['build']) ? $browser['build'] : $build;
+            if ($build)
+                $this->build = $build;
         }
         $driver->setHost($browser['host']);
         $driver->setPort($browser['port']);
@@ -90,6 +96,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $driver->setTestCase($this);
         $driver->setTestId($this->testId);
 
+
         $this->drivers[0] = $driver;
 
         return $driver;
@@ -98,6 +105,8 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     protected function prepareTestSession()
     {
         $this->job_id = parent::prepareTestSession();
+        if ($this->build)
+            SauceTestCommon::ReportBuild($this->job_id, $this->build);
         $this->postSessionSetUp();
         return $this->job_id;
     }

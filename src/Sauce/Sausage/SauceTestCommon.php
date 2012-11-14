@@ -39,4 +39,12 @@ abstract class SauceTestCommon
         return array($result, $msg);
     }
 
+
+    public static function ReportBuild($session_id, $build)
+    {
+        self::RequireSauceConfig();
+        $api = new SauceAPI(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
+        $api->updateJob($session_id, array('build'=>$build));
+    }
+
 }
