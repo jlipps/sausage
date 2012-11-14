@@ -13,6 +13,10 @@ class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
 
     protected $access_key;
 
+    protected $record_video;
+
+    protected $video_upload_on_pass;
+
     public function start()
     {
         foreach (array('browserUrl', 'username', 'access_key', 'browser', 'browser_version', 'os') as $data) {
@@ -27,7 +31,9 @@ class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
             'os'              => $this->os,
             'browser'         => $this->browser,
             'browser-version' => $this->browser_version,
-            'name'            => $this->name
+            'name'            => $this->name,
+            'record-video'    => $this->record_video,
+            'video-upload-on-pass' => $this->video_upload_on_pass,
         );
 
         $this->sessionId = $this->getString(
@@ -38,6 +44,24 @@ class SeleniumRCDriver extends \PHPUnit_Extensions_SeleniumTestCase_Driver
         $this->doCommand('setTimeout', array($this->seleniumTimeout * 1000));
 
         return $this->sessionId;
+    }
+
+    public function setRecordVideo($record)
+    {
+        if (!is_bool($record)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'bool');
+        }
+
+        $this->record_video = $record;
+    }
+
+    public function setUploadVideoOnPass($record)
+    {
+        if (!is_bool($record)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'bool');
+        }
+
+        $this->video_upload_on_pass = $record;
     }
 
     public function setUsername($username)

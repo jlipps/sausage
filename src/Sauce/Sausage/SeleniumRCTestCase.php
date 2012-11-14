@@ -35,7 +35,9 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             'httpTimeout' => 45,
             'host' => 'ondemand.saucelabs.com',
             'port' => 80,
-            'name' => get_called_class().'::'.$this->getName()
+            'name' => get_called_class().'::'.$this->getName(),
+            'record-video' => true,
+            'video-upload-on-pass' => true,
         );
 
         $local_defaults = array(
@@ -93,6 +95,8 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $driver->setBrowser($browser['browser']);
         $driver->setTimeout($browser['timeout']);
         $driver->setHttpTimeout($browser['httpTimeout']);
+        $driver->setRecordVideo($browser['record-video']);
+        $driver->setUploadVideoOnPass($browser['video-upload-on-pass']);
         $driver->setTestCase($this);
         $driver->setTestId($this->testId);
 
