@@ -15,7 +15,7 @@
     "php": ">=5.3.0",
     "sauce/sausage-installer": ">=0.1.0",
     "phpunit/phpunit-selenium": ">=1.2.10",
-    "brianium/paratest": "~0.1.5"
+    "brianium/paratest": ">=0.3.0"
   },
   "suggest": {
     "sauce/connect": ">=3.0"

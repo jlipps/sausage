@@ -96,11 +96,11 @@ Running tests in parallel
 Running Selenium tests one at a time is like eating one cookie at a time. Let's
 do it all at once! Try this:
 
-    vendor/bin/paratest -processes=2 --path=vendor/sauce/sausage/WebDriverDemo.php --functional
+    vendor/bin/paratest -p 2 -f --phpunit=vendor/bin/phpunit vendor/sauce/sausage/WebDriverDemo.php
 
 (Or for Windows):
 
-    vendor\bin\paratest.bat --processes=2 --path=vendor\sauce\sausage\WebDriverDemo.php --functional
+    vendor\bin\paratest.bat -p 2 -f --phpunit=vendor\bin\phpunit.bat vendor\sauce\sausage\WebDriverDemo.php
 
 Now they'll finish twice as fast! (And if you get a [Sauce Labs
 account](http://saucelabs.com/pricing), you can
