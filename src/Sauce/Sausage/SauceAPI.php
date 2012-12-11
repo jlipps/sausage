@@ -43,6 +43,12 @@ class SauceAPI
         elseif ($type == "DELETE")
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 
+        // If user has ca bundle location specified in environment
+        // set that same path on php curl connection
+        if (getenv('CURL_CA_BUNDLE')) {
+            curl_setopt($ch, CURLOPT_CAINFO, getenv('CURL_CA_BUNDLE'));
+        }
+
         $headers = array();
         $headers[] = 'Content-Type: text/json';
 
