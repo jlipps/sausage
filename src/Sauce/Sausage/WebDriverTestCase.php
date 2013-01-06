@@ -135,10 +135,10 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public function prepareSession()
     {
-        parent::prepareSession();
+        $session = parent::prepareSession();
         if ($this->getBuild())
             SauceTestCommon::ReportBuild($this->getSessionId(), $this->getBuild());
-        return parent::prepareSession();
+        return $session;
     }
 
     public function tearDown()
