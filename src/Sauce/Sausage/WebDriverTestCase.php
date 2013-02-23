@@ -162,7 +162,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     protected function buildUrl($url)
     {
-        if ($url !== NULL && $this->base_url !== NULL && !preg_match("/^http(s):/", $url)) {
+        if ($url !== NULL && $this->base_url !== NULL && !preg_match("/^https?:/", $url)) {
             if (strlen($url) && $url[0] == '/') {
                 $sep = '';
             } else {
