@@ -85,6 +85,8 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             $driver->setAccessKey(SAUCE_ACCESS_KEY);
             $driver->setOs($browser['os']);
             $driver->setBrowserVersion($browser['browserVersion']);
+            $driver->setRecordVideo($browser['record-video']);
+            $driver->setUploadVideoOnPass($browser['video-upload-on-pass']);
             $build = isset($browser['build']) ? $browser['build'] : $build;
             if ($build)
                 $this->build = $build;
@@ -95,8 +97,6 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $driver->setBrowser($browser['browser']);
         $driver->setTimeout($browser['timeout']);
         $driver->setHttpTimeout($browser['httpTimeout']);
-        $driver->setRecordVideo($browser['record-video']);
-        $driver->setUploadVideoOnPass($browser['video-upload-on-pass']);
         $driver->setTestCase($this);
         $driver->setTestId($this->testId);
 
