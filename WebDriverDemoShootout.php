@@ -72,6 +72,7 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
         $fake_username = uniqid();
         $fake_password = uniqid();
 
+        $this->url('/');
         $this->byName('login')->value($fake_username);
         $this->byName('password')->value($fake_password);
         $this->byCss('input.login')->click();
