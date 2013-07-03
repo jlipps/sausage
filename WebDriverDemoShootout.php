@@ -61,10 +61,9 @@ class WebDriverDemoShootout extends Sauce\Sausage\WebDriverTestCase
             $this->doLogout();
     }
 
-    public function setUp()
+    public function setUpPage()
     {
-        parent::setUp();
-        $this->setBrowserUrl('http://tutorialapp.saucelabs.com');
+        $this->url('http://tutorialapp.saucelabs.com');
     }
 
     public function testLoginFailsWithBadCredentials()

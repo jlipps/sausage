@@ -28,21 +28,18 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
         //)
     );
 
-    public function setUp()
+    public function setUpPage()
     {
-        parent::setUp();
-        $this->setBrowserUrl('http://saucelabs.com/test/guinea-pig');
+        $this->url('http://saucelabs.com/test/guinea-pig');
     }
 
     public function testTitle()
     {
-        $this->url('http://saucelabs.com/test/guinea-pig');
         $this->assertContains("I am a page title", $this->title());
     }
 
     public function testLink()
     {
-        $this->url('http://saucelabs.com/test/guinea-pig');
         $link = $this->byId('i am a link');
         $link->click();
         $this->assertContains("I am another page title", $this->title());
@@ -50,7 +47,6 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 
     public function testTextbox()
     {
-        $this->url('http://saucelabs.com/test/guinea-pig');
         $test_text = "This is some text";
         $textbox = $this->byId('i_am_a_textbox');
         $textbox->click();
@@ -60,7 +56,6 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 
     public function testSubmitComments()
     {
-        $this->url('http://saucelabs.com/test/guinea-pig');
         $comment = "This is a very insightful comment.";
         $this->byId('comments')->value($comment);
         $this->byId('submit')->submit();
