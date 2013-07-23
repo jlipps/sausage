@@ -12,6 +12,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     public function setUp()
     {
         $caps = $this->getDesiredCapabilities();
+        $this->setBrowserUrl('');
         if (!isset($caps['name'])) {
             $caps['name'] = get_called_class().'::'.$this->getName();
             $this->setDesiredCapabilities($caps);
