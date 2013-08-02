@@ -9,7 +9,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     protected $is_local_test = false;
     protected $build = false;
 
-    public function setupSpecificBrowser($browser)
+    public function setupSpecificBrowser(array $browser)
     {
         $this->getDriver($browser);
         self::ShareSession(false);
