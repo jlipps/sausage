@@ -13,6 +13,16 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
                 'platform' => 'Windows 2012',
             )
         )//,
+        // run Mobile Safari on iOS
+        //array(
+            //'browserName' => '',
+            //'desiredCapabilities' => array(
+                //'app' => 'safari',
+                //'device' => 'iPhone Simulator',
+                //'version' => '6.1',
+                //'platform' => 'Mac 10.8',
+            //)
+        //)//,
         // run Chrome on Linux on Sauce
         //array(
             //'browserName' => 'chrome',

@@ -5,6 +5,8 @@
   "keywords": ["sauce", "saucelabs", "api", "testing", "phpunit", "selenium"],
   "homepage": "http://github.com/jlipps/sausage",
   "license": "Apache-2.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "authors": [{
     "name": "Jonathan Lipps",
     "email": "jlipps@saucelabs.com",
@@ -14,8 +16,8 @@
   "require": {
     "php": ">=5.3.0",
     "sauce/sausage-installer": ">=0.1.0",
-    "phpunit/phpunit-selenium": ">=1.2.10",
-    "brianium/paratest": ">=0.3.0"
+    "phpunit/phpunit-selenium": ">=1.3.2",
+    "brianium/paratest": ">=0.5.0"
   },
   "suggest": {
     "sauce/connect": ">=3.0"
