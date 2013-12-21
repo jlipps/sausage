@@ -4,6 +4,9 @@ require_once 'vendor/autoload.php';
 
 class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 {
+
+    protected $start_url = 'http://saucelabs.com/test/guinea-pig';
+
     public static $browsers = array(
         // run FF15 on Windows 8 on Sauce
         array(
@@ -37,11 +40,6 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
             //'sessionStrategy' => 'shared'
         //)
     );
-
-    public function setUpPage()
-    {
-        $this->url('http://saucelabs.com/test/guinea-pig');
-    }
 
     public function testTitle()
     {

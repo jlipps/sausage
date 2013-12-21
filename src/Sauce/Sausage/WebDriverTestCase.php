@@ -20,7 +20,8 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public function setUpPage()
     {
-        $this->url($this->start_url);
+        if ($this->start_url)
+            $this->url($this->start_url);
     }
 
     public function setupSpecificBrowser($params)
