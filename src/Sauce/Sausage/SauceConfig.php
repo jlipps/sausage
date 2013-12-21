@@ -37,8 +37,17 @@ EOF;
             define('SAUCE_USERNAME', $username);
             define('SAUCE_ACCESS_KEY', $access_key);
         }
-        if (!defined('SAUCE_BUILD') && getenv('SAUCE_BUILD')) {
-            define('SAUCE_BUILD', getenv('SAUCE_BUILD'));
+        $build_envs = array(
+            'SAUCE_BUILD',
+            'BUILD_TAG',
+            'BUILD_NUMBER',
+            'TRAVIS_BUILD_NUMBER',
+            'CIRCLE_BUILD_NUM'
+        );
+        foreach ($build_envs as $build_env) {
+            if (!defined('SAUCE_BUILD') && getenv($build_env)) {
+                define('SAUCE_BUILD', getenv($build_env));
+            }
         }
     }
 
