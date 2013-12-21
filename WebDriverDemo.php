@@ -12,7 +12,14 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
                 'version' => '15',
                 'platform' => 'Windows 2012',
             )
-        )//,
+        ),
+        // run Chrome on Linux on Sauce
+        array(
+            'browserName' => 'chrome',
+            'desiredCapabilities' => array(
+                'platform' => 'Linux'
+          )
+        ),
         // run Mobile Safari on iOS
         //array(
             //'browserName' => '',
@@ -23,13 +30,6 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
                 //'platform' => 'Mac 10.8',
             //)
         //)//,
-        // run Chrome on Linux on Sauce
-        //array(
-            //'browserName' => 'chrome',
-            //'desiredCapabilities' => array(
-                //'platform' => 'Linux'
-          //)
-        //),
         // run Chrome locally
         //array(
             //'browserName' => 'chrome',

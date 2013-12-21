@@ -25,17 +25,6 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         $this->url($this->start_url);
     }
 
-
-    public function setBuild($build)
-    {
-        $this->build = $build;
-    }
-
-    public function getBuild()
-    {
-        return $this->build;
-    }
-
     public function setupSpecificBrowser($params)
     {
         // Setting 'local' gives us nice defaults of localhost:4444
@@ -75,12 +64,12 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         // Set up other params
         $this->setBrowser($params['browserName']);
         $caps = isset($params['desiredCapabilities']) ? $params['desiredCapabilities'] : array();
-        $this->setDesiredCapabilities($caps);
         $this->setSeleniumServerRequestsTimeout(
             $params['seleniumServerRequestsTimeout']);
         $build = isset($params['build']) ? $params['build'] : SauceConfig::GetBuild();
-        if ($build)
-            $this->setBuild($build);
+        if ($build && !isset($caps['build']))
+            $caps['build'] = $build;
+        $this->setDesiredCapabilities($caps);
 
         // If we're using Sauce, make sure we don't try to share browsers
         if (!$local && !$host && isset($params['sessionStrategy'])) {
@@ -147,15 +136,6 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             $element->click();
             $this->keys($keys);
         }
-    }
-
-
-    public function prepareSession()
-    {
-        $session = parent::prepareSession();
-        if ($this->getBuild())
-            SauceTestCommon::ReportBuild($this->getSessionId(), $this->getBuild());
-        return $session;
     }
 
     public function tearDown()
