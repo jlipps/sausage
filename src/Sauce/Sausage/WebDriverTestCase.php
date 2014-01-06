@@ -8,6 +8,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     protected $base_url = NULL;
     protected $is_local_test = false;
     protected $build = false;
+    protected $fileDetectorFunction = NULL;
 
     public function setUp()
     {
@@ -131,10 +132,21 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         return parent::byCssSelector($selector);
     }
 
+    public function fileDetector($fileDetectorFunction)
+    {
+        $this->fileDetectorFunction = $fileDetectorFunction;
+    }
+
     public function sendKeys(\PHPUnit_Extensions_Selenium2TestCase_Element $element, $keys)
     {
-        $element->click();
-        $this->keys($keys);
+        if($this->fileDetectorFunction &&
+            call_user_func($this->fileDetectorFunction, $keys)) {
+            $remote_file = $this->file($keys);
+            $element->value($remote_file);
+        } else {
+            $element->click();
+            $this->keys($keys);
+        }
     }
 
 
