@@ -40,7 +40,7 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
 
     public function setUpPage()
     {
-        $this->url("http://isaac.dev.saucelabs.net/test/guinea-file-upload");
+        $this->url("http://sl-test.herokuapp.com/guinea_pig/file_upload");
 
         // set the method which knows if this is a file we're trying to upload
         $this->fileDetector(function($filename) {
