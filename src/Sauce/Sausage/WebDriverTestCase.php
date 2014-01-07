@@ -161,7 +161,11 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     public function tearDown()
     {
         if (!$this->is_local_test)
+        {
             SauceTestCommon::ReportStatus($this->getSessionId(), !$this->hasFailed());
+            if($this->hasFailed())
+                print("\nReport link: ".$this->createNoLoginLink()."\n");
+        }
     }
 
     public function spinAssert($msg, $test, $args=array(), $timeout=10)
@@ -198,6 +202,16 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     public function setBrowserUrl($url = '')
     {
         return parent::setBrowserUrl($this->buildUrl($url));
+    }
+
+    public function createNoLoginLink()
+    {
+        // generate as per http://saucelabs.com/docs/integration#public-job-links
+        $job_id = $this->getSessionId();
+        $key = SAUCE_USERNAME.':'.SAUCE_ACCESS_KEY;
+        $auth_token = hash_hmac("md5", $job_id, $key);
+
+        return "https://saucelabs.com/jobs/".$job_id."?auth=".$auth_token;
     }
 
 }
