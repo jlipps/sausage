@@ -205,6 +205,14 @@ makes sure to report the status of the test to Sauce after it's complete, so
 as you're looking at your log of tests you can easily see which passed and which
 failed.
 
+Automatic No-Login Link Generation
+---
+Upon test failure, Sausage generates a authorized link to the failed job report
+on the Sauce Labs website, to facilitate reporting to people who need to know
+the details of the test. The job remains private (unless you change the status
+yourself), but others can follow the link without needing to log in with your
+credentials.
+
 Build IDs
 ----
 If you're running your tests as part of your build, you can define a build id,
