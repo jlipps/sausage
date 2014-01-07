@@ -12,44 +12,36 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
                 'version' => '15',
                 'platform' => 'Windows 2012',
             )
-        )//,
+        ),
         // run Mobile Safari on iOS
-        //array(
-            //'browserName' => '',
-            //'desiredCapabilities' => array(
-                //'app' => 'safari',
-                //'device' => 'iPhone Simulator',
-                //'version' => '6.1',
-                //'platform' => 'Mac 10.8',
-            //)
-        //)//,
+        array(
+            'browserName' => '',
+            'desiredCapabilities' => array(
+                'app' => 'safari',
+                'device' => 'iPhone Simulator',
+                'version' => '6.1',
+                'platform' => 'Mac 10.8',
+            )
+        ),
         // run Chrome on Linux on Sauce
-        //array(
-            //'browserName' => 'chrome',
-            //'desiredCapabilities' => array(
-                //'platform' => 'Linux'
-          //)
-        //),
+        array(
+            'browserName' => 'chrome',
+            'desiredCapabilities' => array(
+                'platform' => 'Linux'
+          )
+        ),
         // run Chrome locally
-        // array(
-        //     'browserName' => 'chrome',
-        //     'local' => true,
-        //     'sessionStrategy' => 'shared'
-        // )
+        array(
+            'browserName' => 'chrome',
+            'local' => true,
+            'sessionStrategy' => 'shared'
+        )
     );
 
     public function setUpPage()
     {
         $this->url("http://saucelabs.com/test/guinea-pig");
     }
-
-    // public function testLink()
-    // {
-    //     $link = $this->byId('i am a link');
-    //     $link->click();
-    //     $this->assertContains("I am another page title", $this->title());
-    //     $this->assertContains("Invalid title", $this->title());
-    // }
 
     public function testTitle()
     {
