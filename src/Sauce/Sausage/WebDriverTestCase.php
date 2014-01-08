@@ -212,7 +212,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public function toString()
     {
-        if($this->hasFailed())
+        if(!$this->is_local_test && $this->hasFailed())
             return parent::toString()."\nReport link: ".$this->createNoLoginLink()."\n";
         return parent::toString();
     }
