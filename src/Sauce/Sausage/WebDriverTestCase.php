@@ -181,4 +181,21 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         return parent::setBrowserUrl($this->buildUrl($url));
     }
 
+    public function createNoLoginLink()
+    {
+        // generate as per http://saucelabs.com/docs/integration#public-job-links
+        $job_id = $this->getSessionId();
+        $key = SAUCE_USERNAME.':'.SAUCE_ACCESS_KEY;
+        $auth_token = hash_hmac("md5", $job_id, $key);
+
+        return "https://saucelabs.com/jobs/".$job_id."?auth=".$auth_token;
+    }
+
+    public function toString()
+    {
+        if(!$this->is_local_test && $this->hasFailed())
+            return parent::toString()."\nReport link: ".$this->createNoLoginLink()."\n";
+        return parent::toString();
+    }
+
 }
