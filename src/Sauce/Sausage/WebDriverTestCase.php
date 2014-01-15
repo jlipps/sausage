@@ -3,6 +3,7 @@ namespace Sauce\Sausage;
 
 abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
+    public static $browsers = array();
 
     protected $start_url = '';
     protected $base_url = NULL;
@@ -198,4 +199,36 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         return parent::toString();
     }
 
+    public static function suite($className)
+    {   
+        self::setUpSauceOnDemandBrowsers();
+        return parent::suite($className);
+    } 
+
+    public static function setUpSauceOnDemandBrowsers() {
+        $json = getenv('bamboo_SAUCE_ONDEMAND_BROWSERS');
+        if ($json) {
+            self::$browsers = array_map(array('Sauce\Sausage\WebDriverTestCase','getSauceOnDemandBrowser'), json_decode($json));
+        } else {
+            self::$browsers = array(
+                array(
+                    'browserName' => 'firefox',
+                    'desiredCapabilities' => array(
+                        'platform' => 'Windows'
+                    ),
+                ),
+            );
+        }
+    }
+
+    public static function getSauceOnDemandBrowser($options) {
+        $browser = array(
+            'browserName' => $options->browser,
+            'desiredCapabilities' => array(
+                'platform' => $options->os,
+                'version' => $options->{'browser-version'},
+            ),
+        );
+        return $browser;
+    }
 }
