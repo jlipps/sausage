@@ -283,3 +283,7 @@ Contributors
 * Jonathan Lipps ([jlipps](http://github.com/jlipps)) (Author)
 
 If you have any ideas for Sausage, put them in code and send them my way!
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jlipps/sausage/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
