@@ -207,6 +207,11 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 
     public static function setUpSauceOnDemandBrowsers() {
         $json = getenv('bamboo_SAUCE_ONDEMAND_BROWSERS');
+
+        if (!$json) {
+            $json = getenv('SAUCE_ONDEMAND_BROWSERS');
+        }
+
         if ($json) {
             self::$browsers = array_map(array('Sauce\Sausage\WebDriverTestCase','getSauceOnDemandBrowser'), json_decode($json));
         } else {
