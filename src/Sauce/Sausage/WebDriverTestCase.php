@@ -3,8 +3,6 @@ namespace Sauce\Sausage;
 
 abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
-    public static $browsers = array();
-
     protected $start_url = '';
     protected $base_url = NULL;
     protected $is_local_test = false;
@@ -199,13 +197,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         return parent::toString();
     }
 
-    public static function suite($className)
-    {   
-        self::setUpSauceOnDemandBrowsers();
-        return parent::suite($className);
-    } 
-
-    public static function setUpSauceOnDemandBrowsers() {
+    public static function browsers() {
         $json = getenv('bamboo_SAUCE_ONDEMAND_BROWSERS');
 
         if (!$json) {
@@ -213,27 +205,29 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
         }
 
         if ($json) {
-            self::$browsers = array_map(array('Sauce\Sausage\WebDriverTestCase','getSauceOnDemandBrowser'), json_decode($json));
-        } else {
-            self::$browsers = array(
-                array(
-                    'browserName' => 'firefox',
+            $jsonMapFn = function($options) {
+                return array(
+                    'browserName' => $options->browser,
                     'desiredCapabilities' => array(
-                        'platform' => 'Windows'
+                        'platform' => $options->os,
+                        'version' => $options->{'browser-version'},
                     ),
-                ),
-            );
-        }
-    }
+                );
+            };
+            $jsonDecode = json_decode($json);
 
-    public static function getSauceOnDemandBrowser($options) {
-        $browser = array(
-            'browserName' => $options->browser,
-            'desiredCapabilities' => array(
-                'platform' => $options->os,
-                'version' => $options->{'browser-version'},
+            if ($jsonDecode) {
+                return array_map($jsonMapFn, $jsonDecode);
+            }
+        }
+
+        return array(
+            array(
+                'browserName' => 'firefox',
+                'desiredCapabilities' => array(
+                    'platform' => 'Windows'
+                ),
             ),
         );
-        return $browser;
     }
 }
