@@ -18,6 +18,9 @@ class SauceConfig
             } elseif (getenv('SAUCE_USERNAME') && getenv('SAUCE_ACCESS_KEY')) {
                 $username = getenv('SAUCE_USERNAME');
                 $access_key = getenv('SAUCE_ACCESS_KEY');
+            } elseif (getenv('SAUCE_USER_NAME') && getenv('SAUCE_API_KEY')) {
+                $username = getenv('SAUCE_USER_NAME');
+                $access_key = getenv('SAUCE_API_KEY');
             } elseif ($fail_if_no_config) {
                 $msg = <<<EOF
 We could not find your Sauce username or access key (which you can get from
