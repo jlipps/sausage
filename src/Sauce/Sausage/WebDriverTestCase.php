@@ -142,11 +142,11 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     {
         if (!$this->is_local_test) {
             SauceTestCommon::ReportStatus($this->getSessionId(), !$this->hasFailed());
-			
-			if(getenv('JENKINS_HOME')) {
-				printf("SauceOnDemandSessionID=%s job-name=%s", $this->getSessionId(), get_called_class().'.'.$this->getName());
-			}
-		}
+
+            if(getenv('JENKINS_HOME')) {
+                printf("SauceOnDemandSessionID=%s job-name=%s", $this->getSessionId(), get_called_class().'.'.$this->getName());
+            }
+        }
     }
 
     public function spinAssert($msg, $test, $args=array(), $timeout=10)
