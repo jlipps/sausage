@@ -26,7 +26,7 @@ class SauceConfig
 We could not find your Sauce username or access key (which you can get from
 https://saucelabs.com/account). You have two options for setting them:
 
-1) run vendor/bin/sauce_config USERNAME access_kEY
+1) run vendor/bin/sauce_config USERNAME ACCESS_KEY
 2) export environment variables SAUCE_USERNAME and SAUCE_ACCESS_KEY
 
 Please take one of these two steps and try again!
