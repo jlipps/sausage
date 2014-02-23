@@ -9,6 +9,15 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     protected $is_local_test = false;
     protected $build = false;
 
+    public static $browsers = array();
+
+    // This function will set the browsers using the new browsers() method call
+    public static function suite($className)
+    {
+        static::$browsers = static::browsers();
+        return parent::suite($className);
+    }
+
     public function setupSpecificBrowser(array $browser)
     {
         $this->getDriver($browser);
@@ -124,6 +133,10 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     {
         if (!$this->is_local_test) {
             SauceTestCommon::ReportStatus($this->job_id, !$this->hasFailed());
+
+            if(getenv('JENKINS_HOME')) {
+                printf("SauceOnDemandSessionID=%s job-name=%s", $this->job_id, get_called_class().'.'.$this->getName());
+            }
         }
     }
 
@@ -131,6 +144,36 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     {
         list($result, $msg) = SauceTestCommon::SpinAssert($msg, $test, $args, $timeout);
         $this->assertTrue($result, $msg);
+    }
+
+    public static function browsers() {
+        $json = getenv('bamboo_SAUCE_ONDEMAND_BROWSERS');
+
+        if (!$json) {
+            $json = getenv('SAUCE_ONDEMAND_BROWSERS');
+        }
+
+        if ($json) {
+            $jsonMapFn = function($options) {
+                return array(
+                    'browser' => $options->browser,
+                    'browserVersion' => $options->{'browser-version'},
+                    'os' => $options->os
+                );
+            };
+            $jsonDecode = json_decode($json);
+
+            if ($jsonDecode) {
+                return array_map($jsonMapFn, $jsonDecode);
+            }
+        }
+
+        //Check for set browsers from child test case
+        if (!empty(static::$browsers) && is_array(static::$browsers)) {
+            return static::$browsers;
+        }
+
+        throw new \Exception('No browsers found.');
     }
 
 }
