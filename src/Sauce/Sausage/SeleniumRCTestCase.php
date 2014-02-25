@@ -135,7 +135,7 @@ abstract class SeleniumRCTestCase extends \PHPUnit_Extensions_SeleniumTestCase
             SauceTestCommon::ReportStatus($this->job_id, !$this->hasFailed());
 
             if(getenv('JENKINS_HOME')) {
-                printf("SauceOnDemandSessionID=%s job-name=%s", $this->job_id, get_called_class().'.'.$this->getName());
+                printf("\nSauceOnDemandSessionID=%s job-name=%s", $this->job_id, get_called_class().'.'.$this->getName()."\n");
             }
         }
     }

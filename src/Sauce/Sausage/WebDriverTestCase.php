@@ -9,6 +9,15 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
     protected $build = false;
     protected $fileDetectorFunction = NULL;
 
+    public static $browsers = array();
+
+    // This function will set the browsers using the new browsers() method call
+    public static function suite($className)
+    {
+        static::$browsers = static::browsers();
+        return parent::suite($className);
+    }
+
     public function setUp()
     {
         $caps = $this->getDesiredCapabilities();
@@ -144,7 +153,7 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             SauceTestCommon::ReportStatus($this->getSessionId(), !$this->hasFailed());
 
             if(getenv('JENKINS_HOME')) {
-                printf("SauceOnDemandSessionID=%s job-name=%s", $this->getSessionId(), get_called_class().'.'.$this->getName());
+                printf("\nSauceOnDemandSessionID=%s job-name=%s", $this->getSessionId(), get_called_class().'.'.$this->getName()."\n");
             }
         }
     }
@@ -226,13 +235,11 @@ abstract class WebDriverTestCase extends \PHPUnit_Extensions_Selenium2TestCase
             }
         }
 
-        return array(
-            array(
-                'browserName' => 'firefox',
-                'desiredCapabilities' => array(
-                    'platform' => 'Windows'
-                ),
-            ),
-        );
+        //Check for set browsers from child test case
+        if (!empty(static::$browsers) && is_array(static::$browsers)) {
+            return static::$browsers;
+        }
+
+        throw new \Exception('No browsers found.');
     }
 }
