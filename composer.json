@@ -27,7 +27,7 @@
     "appium/php-client": "dev-master"
   },
   "suggest": {
-    "sauce/connect": ">=3.0"
+    "sauce/connect": ">=3.1"
   },
   "autoload": {
     "psr-0": {"Sauce": "src/"}
