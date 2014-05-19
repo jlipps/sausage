@@ -58,6 +58,7 @@ class WebDriverDemo extends Sauce\Sausage\WebDriverTestCase
         $test_text = "This is some text";
         $textbox = $this->byId('i_am_a_textbox');
         $textbox->click();
+        $textbox->clear();
         $this->keys($test_text);
         $this->assertEquals($textbox->value(), $test_text);
     }

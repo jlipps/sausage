@@ -91,6 +91,21 @@ And start seeing tests pass. (While the tests are running, you can check on
 their progress by going to your [Sauce tests
 page](http://saucelabs.com/tests))
 
+Getting Started with Mobile
+----
+Running tests on Mobile uses [Appium](http://appium.io). If everything is set up
+correctly, you should be able to run this:
+
+    vendor/bin/phpunit vendor/sauce.sausage/MobileDemo.php
+
+(Or for Windows):
+
+    vendor\bin\phpunit.bat vendor\sauce\sausage\AppiumDemo.php
+
+And start seeing tests pass. (While the tests are running, you can check on
+their progress by going to your [Sauce tests
+page](http://saucelabs.com/tests))
+
 Running tests in parallel
 ---
 Running Selenium tests one at a time is like eating one cookie at a time. Let's
@@ -163,6 +178,67 @@ For more examples, check out:
 
 If you're into Selenium 1 (Selenium RC), instead take a look at
 `SeleniumRCDemo.php`
+
+Writing Mobile tests
+---
+Writing tests for mobile devices is easy and straightforward. Sausage
+is by default built on top of [Appium](http://appium.io) and the [Appium PHP
+Client](https://github.com/appium/php-client) and
+[PHPUnit_Selenium](http://github.com/sebastianbergmann/phpunit-selenium). All
+commands that work in `PHPUnit_Extensions_Selenium2TestCase` also work in
+Sausage's `MobileTestCase`. Here's a simple example:
+
+```php
+<?php
+require_once "vendor/autoload.php";
+define("APP_URL", "http://appium.s3.amazonaws.com/TestApp6.0.app.zip");
+
+class MobileTest extends Sauce\Sausage\MobileTestCase
+{
+    protected $numValues = array();
+
+    public static $browsers = array(
+        array(
+            'browserName' => '',
+            'desiredCapabilities' => array(
+                'appium-version' => '1.0',
+                'platformName' => 'iOS',
+                'platformVersion' => '7.0',
+                'deviceName' => 'iPhone Simulator',
+                'name' => 'Appium/Sauce iOS Test, PHP',
+                'app' => APP_URL
+            )
+        )
+    );
+
+    public function elemsByClassName($klass)
+    {
+        return $this->elements($this->using('class name')->value($klass));
+    }
+
+    protected function populate()
+    {
+        $elems = $this->elemsByClassName('UIATextField');
+        foreach ($elems as $elem) {
+            $randNum = rand(0, 10);
+            $elem->value($randNum);
+            $this->numValues[] = $randNum;
+        }
+    }
+
+    public function testUiComputation()
+    {
+        $this->populate();
+        $buttons = $this->elemsByClassName('UIAButton');
+        $buttons[0]->click();
+        $texts = $this->elemsByClassName('UIAStaticText');
+        $this->assertEquals(array_sum($this->numValues), (int)($texts[0]->text()));
+    }
+}
+```
+
+Here we define a the device capabilities we want to use, and run a simple test
+of finding elements and interacting with them.
 
 Sauce Labs API
 ---
