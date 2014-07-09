@@ -98,9 +98,9 @@ trait TestCase
     public function waitForText($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL,
         $timeout = 10)
     {
-        $element = $element ?: $this->byCssSelector('body');
         $test = function() use ($element, $text) {
-            $el_text = str_replace("\n", " ", $element->text());
+            $el_text = $element ? $element->text() : $this->byCssSelector('body')->text();
+            $el_text = str_replace("\n", " ", $el_text);
             return strpos($el_text, $text) !== false;
         };
         $this->spinWait("Text $text never appeared!", $test, array(), $timeout);
@@ -109,19 +109,17 @@ trait TestCase
 
     public function assertTextPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
     {
-        if ($element === NULL)
-            $element = $this->byCssSelector('body');
-
         $this->spinAssert("$text was never found", function() use ($text, $element) {
-            return strpos($element->text(), $text) !== false;
+            $el_text = $element ? $element->text() : $this->byCssSelector('body')->text();
+            return strpos($el_text, $text) !== false;
         });
     }
 
     public function assertTextNotPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
     {
-        $element = $element ?: $this->byCssSelector('body');
         $this->spinAssert("$text was found", function() use ($text, $element) {
-            return strpos($element->text(), $text) === false;
+            $el_text = $element ? $element->text() : $this->byCssSelector('body')->text();            
+            return strpos($el_text, $text) === false;
         });
     }
 
