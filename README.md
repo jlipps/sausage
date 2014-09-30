@@ -24,7 +24,7 @@ Check out [sausage-bun](http://github.com/jlipps/sausage-bun). It's a one-line
 script you can run via curl and PHP to get everything going. For example:
 
 ```
-curl -s https://raw.github.com/jlipps/sausage-bun/master/givememysausage.php | php
+curl -sL https://raw.githubusercontent.com/jlipps/sausage-bun/master/givememysausage.php | php
 ```
 
 _Note_: if you are a Windows user who's not using Cygwin, it'll take a little
@@ -41,14 +41,14 @@ file in your project root. A minimal example composer.json would look like:
 ```json
 {
     "require": {
-        "sauce/sausage": ">=0.4.0"
+        "sauce/sausage": ">=0.15.2"
     }
 }
 ```
 
 If you haven't already got Composer installed, get it thusly (for *nix/Mac):
 
-    curl -s http://getcomposer.org/installer | php
+    curl -sL http://getcomposer.org/installer | php
 
 Then, install the packages (or `update` if you've already set up Composer):
 
