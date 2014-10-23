@@ -118,25 +118,27 @@ class SauceMethods
     /* job methods */
 
     public function getJobs($from = null, $to = null, $limit = null,
-        $skip = null, $username = null)
+        $skip = null, $username = null, $full = false)
     {
         $username = $username ? $username : $this->username;
         $q = http_build_query(array(
             'from' => $from,
             'to' => $to,
             'limit' => $limit,
-            'skip' => $skip
+            'skip' => $skip,
+            'full' => $full
         ));
         return array(SAUCE_API_PREFIX.$username.'/jobs_safe?'.$q);
     }
 
-    public function getJobsForBuild($build, $limit = null, $skip = null, $username = null)
+    public function getJobsForBuild($build, $limit = null, $skip = null, $username = null, $full = false)
     {
         $this->requireParam("build", $build);
         $username = $username ? $username : $this->username;
         $q = http_build_query(array(
             'limit' => $limit,
-            'skip' => $skip
+            'skip' => $skip,
+            'full' => $full
         ));
         return array(SAUCE_API_PREFIX.$username.'/build/'.$build.'/jobs?'.$q);
     }
