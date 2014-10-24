@@ -70,7 +70,7 @@ you can always symlink things elsewhere if it's more convenient).
 
 Requirements
 ---
-* Sausage will work on any modern (>= 5.3) PHP installation
+* Sausage will work on any modern (>= 5.4) PHP installation
 * Composer's requirements must also be satisfied (unfortunately, I could not
   find these documented anywhere). Suffice it to say they're normal requirements
   like the cURL extension, `safe_mode` off, `allow_url_fopen`, etc...
