@@ -186,7 +186,14 @@ class SauceMethods
             "PUT"
         );
     }
-
+    
+    public function getJobAssets($job_id, $username = null)
+    {
+        $this->requireParam('job_id', $job_id);
+        $username = $username ? $username : $this->username;
+        return array(SAUCE_API_PREFIX . $username . '/jobs/' . $job_id . '/assets');
+    }
+    
     /* tunnel methods */
 
     public function getTunnels($username = null)
