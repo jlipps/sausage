@@ -136,6 +136,8 @@ require_once 'vendor/autoload.php';
 
 class MyAwesomeTestCase extends Sauce\Sausage\WebDriverTestCase
 {
+    protected $start_url = 'http://saucelabs.com/test/guinea-pig';
+
     public static $browsers = array(
         // run FF15 on Vista on Sauce
         array(
@@ -153,12 +155,6 @@ class MyAwesomeTestCase extends Sauce\Sausage\WebDriverTestCase
           )
         )
     );
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->setBrowserUrl('http://saucelabs.com/test/guinea-pig');
-    }
 
     public function testLink()
     {
