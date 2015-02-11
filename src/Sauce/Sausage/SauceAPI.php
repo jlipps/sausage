@@ -9,7 +9,7 @@ class SauceAPI
     protected $username;
     protected $access_key;
 
-    public function __construct($username, $access_key)
+    public function __construct($username, $access_key, $verify_certs = true)
     {
         if (!$username)
             throw new \Exception("Username is required for SauceAPI");
@@ -17,6 +17,7 @@ class SauceAPI
             throw new \Exception("Access key is required for SauceAPI");
         $this->username = $username;
         $this->access_key = $access_key;
+        $this->verify_certs = $verify_certs;
         $this->methods = new SauceMethods($this->username);
     }
 
@@ -31,6 +32,10 @@ class SauceAPI
     protected function makeRequest($url, $type="GET", $params=false)
     {
         $ch = curl_init();
+        if($this->verify_certs == false) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
