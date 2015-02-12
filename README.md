@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jlipps/sausage.svg?branch=master)](https://travis-ci.org/jlipps/sausage)
+
 Sausage
 =======
 
@@ -349,6 +351,18 @@ credentials, starting sauce connect is as easy as:
     vendor\bin\sauce_connect.bat
 
 Run that and you'll be testing against your local test server in no time!
+
+Ignoring certificate validation
+---
+
+To connect to saucelabs, cURL is used. Sometimes certificate validation may fail, resulting in an error similar to this:
+
+```
+Exception: Got an error while making a request: server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none
+```
+
+You can manually disable curl certificate validation if needed by setting an environment variable `SAUCE_DONT_VERIFY_CERTS`. If any value is set, validation is skipped completely. 
+
 
 Contributors
 ---

@@ -37,7 +37,11 @@ EOF;
                 $username = $access_key = NULL;
             }
 
-            define('SAUCE_VERIFY_CERTS', getenv('SAUCE_VERIFY_CERTS') ? getenv('SAUCE_VERIFY_CERTS') : true);
+            if(getenv('SAUCE_DONT_VERIFY_CERTS')) {
+                define('SAUCE_VERIFY_CERTS', empty(getenv('SAUCE_DONT_VERIFY_CERTS')));
+            } else {
+                define('SAUCE_VERIFY_CERTS', true);
+            }
             define('SAUCE_USERNAME', $username);
             define('SAUCE_ACCESS_KEY', $access_key);
         }
