@@ -363,6 +363,22 @@ Exception: Got an error while making a request: server certificate verification 
 
 You can manually disable curl certificate validation if needed by setting an environment variable `SAUCE_DONT_VERIFY_CERTS`. If any value is set, validation is skipped completely. 
 
+Travis-ci and tunnel-identifier
+---
+
+Travis use tunnel identifier to parallelize unit testing. You have to set the tunnel-identifier for your tests. 
+
+To do so, just add this line to your .travis.yml file in install section
+
+```
+ - export SAUCE_TUNNEL_IDENTIFIER=$TRAVIS_JOB_NUMBER
+```
+
+It's also recomanded to add the line below for travis-ci (see previous section)
+```
+ - export SAUCE_DONT_VERIFY_CERTS=1
+```
+
 
 Contributors
 ---
