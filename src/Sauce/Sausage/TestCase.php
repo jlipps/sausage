@@ -26,6 +26,12 @@ trait TestCase
             $caps['name'] = get_called_class().'::'.$this->getName();
             $this->setDesiredCapabilities($caps);
         }
+        
+        if (null !== getenv('SAUCE_TUNNEL_IDENTIFIER')) {
+            $caps = $this->getDesiredCapabilities();
+            $caps['tunnel-identifier'] = getenv('SAUCE_TUNNEL_IDENTIFIER');
+            $this->setDesiredCapabilities($caps);
+        }
     }
 
     public function setUpPage()
