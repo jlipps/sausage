@@ -26,14 +26,12 @@ trait TestCase
             $caps['name'] = get_called_class().'::'.$this->getName();
             $this->setDesiredCapabilities($caps);
         }
-        
+
         $tunnelId = getenv('SAUCE_TUNNEL_IDENTIFIER');
-        if (null !== $tunnelId) {
-            if (false !== $tunnelId) {
-                $caps = $this->getDesiredCapabilities();
-                $caps['tunnel-identifier'] = $tunnelId;
-                $this->setDesiredCapabilities($caps);
-            }
+        if ($tunnelId) {
+            $caps = $this->getDesiredCapabilities();
+            $caps['tunnel-identifier'] = $tunnelId;
+            $this->setDesiredCapabilities($caps);
         }
     }
 
@@ -127,7 +125,7 @@ trait TestCase
     public function assertTextNotPresent($text, \PHPUnit_Extensions_Selenium2TestCase_Element $element = NULL)
     {
         $this->spinAssert("$text was found", function() use ($text, $element) {
-            $el_text = $element ? $element->text() : $this->byCssSelector('body')->text();            
+            $el_text = $element ? $element->text() : $this->byCssSelector('body')->text();
             return strpos($el_text, $text) === false;
         });
     }
