@@ -27,11 +27,11 @@ trait TestCase
             $this->setDesiredCapabilities($caps);
         }
         
-        $tunnel_id = getenv('SAUCE_TUNNEL_IDENTIFIER');
-        if (null !== $tunnel_id) {
-            if (false !== $tunnel_id) {
+        $tunnelId = getenv('SAUCE_TUNNEL_IDENTIFIER');
+        if (null !== $tunnelId) {
+            if (false !== $tunnelId) {
                 $caps = $this->getDesiredCapabilities();
-                $caps['tunnel-identifier'] = $tunnel_id;
+                $caps['tunnel-identifier'] = $tunnelId;
                 $this->setDesiredCapabilities($caps);
             }
         }
