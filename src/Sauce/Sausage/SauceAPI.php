@@ -1,15 +1,13 @@
 <?php
 namespace Sauce\Sausage;
 
-define('SAUCE_HOST', 'saucelabs.com');
-
 class SauceAPI
 {
 
     protected $username;
     protected $access_key;
 
-    public function __construct($username, $access_key, $verify_certs = true)
+    public function __construct($username, $access_key, $verify_certs = true, $use_european_host = false)
     {
         if (!$username)
             throw new \Exception("Username is required for SauceAPI");
@@ -19,6 +17,13 @@ class SauceAPI
         $this->access_key = $access_key;
         $this->verify_certs = $verify_certs;
         $this->methods = new SauceMethods($this->username);
+
+        $sauce_host = 'saucelabs.com';
+        if ($use_european_host) {
+            $sauce_host = 'app.eu-central-1.saucelabs.com';
+        }
+
+        define('SAUCE_HOST', $sauce_host);
     }
 
     protected function buildUrl($endpoint)
