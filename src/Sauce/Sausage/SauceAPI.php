@@ -18,12 +18,7 @@ class SauceAPI
         $this->verify_certs = $verify_certs;
         $this->methods = new SauceMethods($this->username);
 
-        $sauce_host = 'saucelabs.com';
-        if ($use_european_host) {
-            $sauce_host = 'app.eu-central-1.saucelabs.com';
-        }
 
-        define('SAUCE_HOST', $sauce_host);
     }
 
     protected function buildUrl($endpoint)

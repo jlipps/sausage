@@ -10,11 +10,13 @@ class SauceConfig
     public static function LoadConfig($fail_if_no_config = true)
     {
         if (!defined('SAUCE_USERNAME') && !defined('SAUCE_ACCESS_KEY')) {
+            $sauce_host = 'saucelabs.com';
             if (is_file(CONFIG_PATH)) {
                 $config = file_get_contents(CONFIG_PATH);
-                list($username, $access_key) = explode(',', $config);
+                list($username, $access_key, $sauce_host) = explode(',', $config);
                 $username = trim($username);
                 $access_key = trim($access_key);
+                $sauce_host = trim($sauce_host);
             } elseif (getenv('SAUCE_USERNAME') && getenv('SAUCE_ACCESS_KEY')) {
                 $username = getenv('SAUCE_USERNAME');
                 $access_key = getenv('SAUCE_ACCESS_KEY');
@@ -43,8 +45,14 @@ EOF;
             } else {
                 define('SAUCE_VERIFY_CERTS', true);
             }
+
+            if(getenv('SAUCE_HOST')){
+                $sauce_host = getenv('SAUCE_HOST');
+            }
+
             define('SAUCE_USERNAME', $username);
             define('SAUCE_ACCESS_KEY', $access_key);
+            define('SAUCE_HOST', $sauce_host);
         }
         $build_envs = array(
             'SAUCE_BUILD',
@@ -75,8 +83,8 @@ EOF;
         return false;
     }
 
-    public static function WriteConfig($username, $access_key) {
-        file_put_contents(CONFIG_PATH, "{$username},{$access_key}");
+    public static function WriteConfig($username, $access_key, $sauce_host = 'saucelabs.com') {
+        file_put_contents(CONFIG_PATH, "{$username},{$access_key},$sauce_host");
     }
 
 }
