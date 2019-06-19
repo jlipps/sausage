@@ -84,7 +84,7 @@ EOF;
     }
 
     public static function WriteConfig($username, $access_key, $sauce_host = 'saucelabs.com') {
-        file_put_contents(CONFIG_PATH, "{$username},{$access_key},$sauce_host");
+        file_put_contents(CONFIG_PATH, "{$username},{$access_key},{$sauce_host}");
     }
 
 }
