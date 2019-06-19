@@ -9,17 +9,25 @@ class SauceAPI
 
     public function __construct($username, $access_key, $verify_certs = true, $use_european_host = false)
     {
-        if (!$username)
+        if (!$username) {
             throw new \Exception("Username is required for SauceAPI");
-        if (!$access_key)
+        }
+        if (!$access_key) {
             throw new \Exception("Access key is required for SauceAPI");
+        }
         $this->username = $username;
         $this->access_key = $access_key;
         $this->verify_certs = $verify_certs;
         $this->methods = new SauceMethods($this->username);
 
+        $sauce_host = 'saucelabs.com';
+        if ($use_european_host){
+            $sauce_host = 'eu-central-1.saucelabs.com';
+        }
 
+        define('SAUCE_HOST', $sauce_host);
     }
+
 
     protected function buildUrl($endpoint)
     {
